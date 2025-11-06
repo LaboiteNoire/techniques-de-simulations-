@@ -24,6 +24,11 @@
 \usetikzlibrary{automata, positioning, arrows}
 \usepackage{pgfplots}
 \usepackage{xcolor}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+\usepackage{xr-hyper} 
+\usepackage{hyperref} 
+\externaldocument[B-]{docB}[Annexe01.pdf]% <- full or relative path
 
 
 % le préambule
@@ -99,8 +104,6 @@ node distance = 2cm}
 
 
 
-
-
 % le corps du document
 
 
@@ -114,7 +117,12 @@ node distance = 2cm}
 \pagecolor{black!20}
 \maketitle
 
+
 \begin{center}
+\textbf{\textit{M1 Actuariat}}
+
+\textbf{\textit{ISFA}}
+
 \includegraphics[width=4cm,height=2cm]{img1}
 
 \href{https://github.com/LaboiteNoire/techniques-de-simulations-}{\includegraphics[width=1cm,height=1cm]{img2}}
@@ -128,16 +136,517 @@ node distance = 2cm}
 
 \tableofcontents
 
+\newpage
+
 \part{Préambule}
-\section{Avant-propos}
-\section{Notations}
+
+\subsection{Avant-propos}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+
+Toutes les ressources utilisées seront présentes en annexes et sur le \href{https://github.com/LaboiteNoire/techniques-de-simulations-}{\textit{\textbf{repository}}} github ci-dessus.
+Dans une optique de rigueur absolue, nous tenterons de commenter chaque partie de notre code et essaierons de justifier nos méthodes de simulation.
+
+\end{minipage}
+\end{center}
+
+
+\subsection{Notations}
+
+\begin{description}
+
+\item[\bsc{* $\mathcal{P}(\textbf{X})$ : }]
+
+\textit{Soit \textbf{$\Omega$}, un ensemble quelconque.}
+
+\phantom{aaaaaaa} — \textit{On note $\mathcal{P}(\Omega)$, l'ensemble des parties de $\Omega$.}
+
+\item[\bsc{* $\sigma$-Algèbre de $\Omega$ : }]
+
+\textit{Soit $\Omega$, un ensemble quelconque. $\mathcal{A} \subseteq \mathcal{P}(\Omega)$ est dite $\sigma$-Algèbre de $\Omega$ si :}
+
+\phantom{aaaaaaa} — \textit{$\Omega$ $\in \mathcal{A}$}
+
+\phantom{aaaaaaa} — \textit{$\forall A \in \mathcal{A}$, $\bar{A} \in \mathcal{A}$}
+
+\phantom{aaaaaaa} — \textit{$\forall (A_n)_{n \in \mathbb{N}} \in \mathcal{A}^{\mathbb{N}}$, $\bigcup_{n \in \mathbb{N}} A_n \in \mathcal{A}$}
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{On notera la « tribu borélienne » : $\mathbb{B}(\mathbb{R}^n)$ et \phantom{aaaaaaaaaaaaaa} $\lambda$ : « mesure de Lebesgue ».}
+
+
+\item[\bsc{* $\mu$ Mesure de probabilité sur $(\Omega, \mathcal{A})$ : }]
+
+\textit{Soit $(\Omega, \mathcal{A})$, un couple dit « espace probabilisable »}
+
+\phantom{aaaaaaa} — \textit{$\mu : \mathcal{A} \longrightarrow [0,1]$}
+
+\phantom{aaaaaaa} — \textit{$\mu(\emptyset) = 0$}
+
+\phantom{aaaaaaa} — \textit{$\forall (A_n)_{n \in \mathbb{N}} \in \mathcal{A}^{\mathbb{N}}$, une famille disjointe, $\mu(\bigsqcup_{n \in \mathbb{N}} A_n)$ = \phantom{aaaaaaaaaaaaaa} $\sum_{n \in \mathbb{N}} \mu(A_n)$}
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{On notera la « probabilité historique » : $\mathbb{P}$.}
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{On notera $(\Omega, \mathcal{A}, \mu)$ : « espace probabilisé ».}
+
+
+\item[\bsc{* \textbf{X}, une variable aléatoire sur $(\Omega, \mathcal{A}, \mathbb{P})$ : }]
+
+\textit{Soit $(\Omega, \mathcal{A}, \mathbb{P})$ : « espace probabilisé »}
+
+\phantom{aaaaaaa} — \textit{$(\textbf{E}, \mathcal{E})$ : « espace mesurable »}
+
+\phantom{aaaaaaa} — \textit{\textbf{X : } $(\Omega, \mathcal{A}, \mathbb{P})$ $\longrightarrow$ $(\textbf{E}, \mathcal{E})$}
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{$\forall B \in \mathcal{E}$, $\mathbb{P}_{X}(B)$ = $\mathbb{P}(\{ \omega \in \Omega | X(\omega) \in \mathcal{B} \})$}
+
+
+\item[\bsc{* \textbf{X}, une variable aléatoire continue sur $(\Omega, \mathcal{A}, \mathbb{P})$ : }]
+
+\textit{Soit $(\Omega, \mathcal{A}, \mathbb{P})$ : « espace probabilisé »}
+
+\phantom{aaaaaaa} — \textit{$(\mathbb{R}^n, \mathbb{B}(\mathbb{R}^n), \lambda)$ : « espace mesuré »}
+
+\phantom{aaaaaaa} — \textit{\textbf{X : } $(\Omega, \mathcal{A}, \mathbb{P})$ $\longrightarrow$ $(\mathbb{R}^n, \mathbb{B}(\mathbb{R}^n), \lambda)$}
+
+\phantom{aaaaaaa} — \textit{$\mathbb{P}_{X}$ << $\lambda$\footnotemark[1]}
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{$\exists ! \rho : (\mathbb{R}^n, \mathbb{B}(\mathbb{R}^n), \lambda) \longrightarrow \mathbb{R}^{+}$\footnotemark[2], mesurable, tel que :}
+
+\[ \mathbb{P}_{X}(A) = \int_{A} \rho(x) \,dx \]
+
+\end{description}
+
+
+\footnotetext[1]{$\forall A \in \mathbb{B}(\mathbb{R}^n)$, tel que $\lambda(A) = 0 \Longrightarrow \mathbb{P}_{X}(A) = 0$.}
+
+\footnotetext[2]{Dite : \textit{« densité de \textbf{X} ».}}
+
+
+
+
+
+
+
+
+\begin{description}
+
+\item[\bsc{* Espérance \textbf{E[X]}, de la variable aléatoire \textbf{X} : }]
+
+\textit{Soit \textbf{X}, une variable aléatoire sur $(\Omega, \mathcal{A}, \mathbb{P})$}
+
+\phantom{aaaaaaa} — \textit{On note} \textbf{E[X]}, \textit{« l'espérance de \textbf{X} ».}
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{Si \textbf{X}, est discrète\footnotemark[1], alors :}
+
+\[ \textbf{E[X]} = \sum_{k \in X(\Omega)} k \mathbb{P}_{X}(\{ k \}) \]
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{Si \textbf{X}, est continue de densité $\rho$, alors :}
+
+\[  \textbf{E[X]} = \int x\rho(x) \,dx \]
+
+
+
+\item[\bsc{* Fonction de Répartition $F_X$, de la variable aléatoire \textbf{X} : }]
+
+\textit{Soit \textbf{X}, une variable aléatoire sur $(\Omega, \mathcal{A}, \mathbb{P})$}
+
+\phantom{aaaaaaa} — \textit{On note} $\forall x \in \mathbb{R}$, $F_X(x) = \mathbb{P}_{X}(]-\infty, x])$ \textit{« la fonction de \phantom{aaaaaaaaaaaaaaa} répartition de \textbf{X} ».}
+
+
+
+\item[\bsc{* Espace $L^p(\Omega, \mathcal{A}, \mathbb{P})$ : }]
+
+\textit{Soit $(\Omega, \mathcal{A}, \mathbb{P})$}
+
+\phantom{aaaaaaa} — \textit{On note} $L^p(\Omega, \mathcal{A}, \mathbb{P})$, \textit{l'ensemble :}
+
+\begin{displaymath}
+\{ \textbf{X} \text{variable aléatoire sur } (\Omega, \mathcal{A}, \mathbb{P}) | \textbf{E[}|\textbf{X}|^p\textbf{]} < + \infty \}
+\end{displaymath}
+
+
+\item[\bsc{* Moment d'ordre $p$ $m_p$\textbf{[X]}, de la variable aléatoire \textbf{X} : }]
+
+\textit{$\forall$ \textbf{X}, $\in L^p(\Omega, \mathcal{A}, \mathbb{P})$}
+
+\phantom{aaaaaaa} — \textit{On note} $m_p$\textbf{[X]} = $\textbf{E[}\textbf{X}^p\textbf{]}$
+
+
+\item[\bsc{* Moment centré d'ordre $p$ $\mu_p$\textbf{[X]}, de la variable aléatoire \textbf{X} : }]
+
+\textit{$\forall$ \textbf{X}, $\in L^p(\Omega, \mathcal{A}, \mathbb{P})$}
+
+\phantom{aaaaaaa} — \textit{On note} $\mu_p$\textbf{[X]} = $\textbf{E[}(\textbf{X} - \textbf{E[X]})^p\textbf{]}$
+
+
+\item[\bsc{* Variantes du moment centré d'ordre $2$, de la variable aléatoire \textbf{X} : }]
+
+\textit{$\forall$ \textbf{X}, $\in L^2(\Omega, \mathcal{A}, \mathbb{P})$}
+
+\phantom{aaaaaaa} — \textit{On note} \textbf{V}$(X)$ = $\mu_2$\textbf{[X]}, \textit{la : « variance de \textbf{X} »} 
+
+\phantom{aaaaaaa} — \textit{On note $\sigma_{X}$ = $\sqrt{V(X)}$, « l'écart-type de \textbf{X} »} 
+
+
+
+
+
+\item[\bsc{* Covariance, entre les variables aléatoires \textbf{X} et \textbf{Y} : }]
+
+\textit{$\forall ($\textbf{X}, \textbf{Y}$)$ $\in L^2(\Omega, \mathcal{A}, \mathbb{P})^2$}
+
+
+\phantom{aaaaaaa} — \textit{On note} \textbf{Cov}$(X,Y)$ = $\textbf{E[} (\textbf{X} - \textbf{E[X]})(\textbf{Y} - \textbf{E[Y]}) \textbf{]} $, \textit{la : « covariance entre \textbf{X} et \textbf{Y} »} 
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{$(L^2(\Omega, \mathcal{A}, \mathbb{P})$, \textbf{Cov}$)$, forme un « espace euclidien »} 
+
+
+
+\item[\bsc{* Coefficient de corrélation linéaire, entre les variables aléatoires \textbf{X} et \textbf{Y} : }]
+
+\textit{$\forall ($\textbf{X}, \textbf{Y}$)$ $\in L^2(\Omega, \mathcal{A}, \mathbb{P})^2$}
+
+
+\phantom{aaaaaaa} — \textit{On note} $\rho_{X,Y}$ = $\dfrac{\textbf{Cov(X,Y)}}{\sigma_{X} \sigma_{Y}}$, \textit{la : « le coefficient de corrélation linéaire entre \textbf{X} et \textbf{Y} »}
+
+
+
+\end{description}
+
+\footnotetext[1]{$\mathbb{P}_{X}$ << $\mu$, ou $\mu$ est : la « mesure de comptage ».}
+
+
+
+\newpage
+\subsection{Objets du Problème}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+
+On cherche à approximer la probabilité de ruine pour un modèle de théorie de la ruine en
+assurance moto. On étudie deux cas : un cas où les assurés sont indépendants, et un cas où ils
+sont corrélés à travers des conditions météo communes.
+
+\end{minipage}
+\end{center}
+
+
+
+\begin{description}
+
+\item[\bsc{* La variable aléatoire $X_{norm}$ sur $(\mathbb{R},\mathbb{B}(\mathbb{R}))$ : }]
+
+\textit{$\forall (x_0,b,\sigma,\delta) \in \mathbb{R} \times (\mathbb{R}_{+}^{*})^3$}
+
+\phantom{aaaaaaa} — \textit{On note} $X_{norm}$,
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{la variable aléatoire continue de densité : $f_{norm}$ :}
+
+\[ \forall x \in \mathbb{R}, \text{  } f_{norm}(x) = \mathds{1}_{[0,b]}(x) \text{ } exp(-\dfrac{(x-x_0)^2}{2\sigma^2}) \text{ } (1 + cos(2 \pi \dfrac{x - x_0}{\delta} )^2) \]
+
+
+
+\item[\bsc{* La variable aléatoire $X_{puissance}$ sur $(\mathbb{R},\mathbb{B}(\mathbb{R}))$ : }]
+
+\textit{$\forall (a, \alpha) \in \mathbb{R}_{+}^{*} \times ]1 : + \infty [$}
+
+\phantom{aaaaaaa} — \textit{On note} $X_{puissance}$,
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{la variable aléatoire continue de densité : $f_{puissance}$\footnotemark[1] :}
+
+\[ \forall x \in \mathbb{R}, \text{  } f_{puissance}(x) = \mathds{1}_{[a,+\infty [}(x) \text{ } x^{-\alpha} \times \dfrac{\alpha - 1}{a^{1-\alpha}} \]
+
+
+
+\item[\bsc{* La variable aléatoire $Z$ sur $(\Omega, \mathcal{A}, \mathbb{P})$ : }]
+
+\textit{Soit $Z(\Omega)$ = $\mathbb{N}$ et $(p_n)_{n \in \mathbb{N}} \in [0,1]^{\mathbb{N}}$ et tel que : $\sum_{n \in \mathbb{N}} p_n$ = 1}
+
+\phantom{aaaaaaa} — \textit{On note} $Z$,
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{la variable aléatoire discrète, dont les probabilités \phantom{aaaaaaaaaaaaaaaaaaa} respectives sont ainsi notées :}
+
+\[ \forall n \in \mathbb{N}, \text{  } p_n = \mathbb{P}(Z = n) \]
+
+
+\phantom{aaaaaaaaaaaaaaaaaa} — \textit{On désignera par la suite sa probabilité de la sorte : $\mathbb{P}_Z$}
+
+
+
+\item[\bsc{* La variable aléatoire \textbf{X} sur $(\Omega, \mathcal{A}, \mathbb{P})$ : }]
+
+\textit{Soit : $X_{norm}$, $X_{puissance}$, $Z$, des variables aléatoires mutuellement indépendantes, de lois (et ou de densités) respectives : $f_{norm}$, $f_{puissance}$ et $\mathbb{P}_Z$.}
+
+\phantom{aaaaaaa} — \textit{On note} \textbf{X},
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{la variable aléatoire, définie de la sorte :}
+
+\begin{displaymath}
+\textbf{X} = 
+\begin{cases}
+	X_{norm} \text{ si Z = } 0 \\
+	X_{puissance} \text{ si Z = } 1 \\
+	Z \text{ sinon}
+\end{cases}
+\end{displaymath}
+
+
+
+
+
+\end{description}
+
+
+
+
+\footnotetext[1]{\href{run:./Annexe01.pdf}{This is my link}}
+
+
+\href{file:ax01.pdf}{File keyword}
+
+\href{run:./Annexe01.pdf}{Run keyword}
+
+\href{run:foo.pdf}{Ouvrir l'annexe}
+
+\href{run:./foo.tex}{test}
+
+
+
+\section{Organisation du travail}
+
 
 \part{Modélisation}
+\section{modélisation}
+\subsection{simulation de $X_{norm}$}
+\subsection{Simulation de $X_{puissance}$}
+\begin{displaymath}
+\forall (a, \alpha) \in \mathbb{R}_{+}^{*} \times ]1 : + \infty [,
+\end{displaymath}
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+$X_{puissance}$ est une variable aléatoire continue, de densité $f_{puissance}$, tel que $\forall x \in \mathbb{R}$ :
+\end{minipage}
+\end{center}
+
+\begin{displaymath}
+f_{puissance}(x) = \mathds{1}_{[a,+\infty [}(x) \text{ } x^{-\alpha} \times \dfrac{\alpha - 1}{a^{1-\alpha}}
+\end{displaymath}
+
+\begin{center}
+$\Updownarrow$
+\end{center}
+
+\begin{displaymath}
+\forall t \in \mathbb{R}, F_{X_{puissance}}(t) = \mathbb{P}_{X_{puissance}}(]-\infty: t]) = \int_{-\infty}^{t} f_{puissance}(x) dx
+\end{displaymath}
+
+\begin{displaymath}
+= \int_{-\infty}^{t} \mathds{1}_{[a,+\infty [}(x) \text{ } x^{-\alpha} \times \dfrac{\alpha - 1}{a^{1-\alpha}} dx
+\end{displaymath}
+
+\begin{displaymath}
+= \mathds{1}_{[a,+\infty [}(t) \int_{a}^{t} \text{ } x^{-\alpha} \times \dfrac{\alpha - 1}{a^{1-\alpha}} dx = \mathds{1}_{[a,+\infty [}(t) \dfrac{\alpha - 1}{a^{1-\alpha}} \int_{a}^{t} \text{ } x^{-\alpha} dx
+\end{displaymath}
+
+\begin{displaymath}
+= \mathds{1}_{[a,+\infty [}(t) \times \dfrac{\overbrace{\alpha - 1}^{= -(1 - \alpha)}}{a^{1-\alpha}} \times \left[ \dfrac{x^{1-\alpha}}{1-\alpha}\right]^{t}_{a} = - \mathds{1}_{[a,+\infty [}(t) \times \left[ \dfrac{x^{1-\alpha}}{a^{1-\alpha}}\right]^{t}_{a}
+\end{displaymath}
+
+
+\begin{displaymath}
+= \mathds{1}_{[a,+\infty [}(t) \times \left[ \dfrac{x^{1-\alpha}}{a^{1-\alpha}}\right]^{a}_{t} = \mathds{1}_{[a,+\infty [}(t) \times \underbrace{\left[ x^{1-\alpha} \right]^{a}_{t}}_{= a^{1- \alpha} - t^{1- \alpha}} \times a^{\alpha - 1}
+\end{displaymath}
+
+\begin{displaymath}
+= \mathds{1}_{[a,+\infty [}(t) \times \left(1- \left(\dfrac{t}{a}\right)^{1-\alpha} \right)
+\end{displaymath}
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Posons $F_{X_{puissance}}^{\phantom{aa}-}$, la fonction définit de la sorte : $\forall y \in ]0,1[$ :
+
+$F_{X_{puissance}}^{\phantom{aa}-}(y)$ = inf $\bigl\{ x \in \mathbb{R} \text{ | } y \leq \mathds{1}_{[a,+\infty [}(x) \times \left(1- \left(\dfrac{x}{a}\right)^{1-\alpha} \right) \bigr\}$
+\end{minipage}
+\end{center}
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Or $y \in ]0,1[ \iff 0 < y \iff \bigl\{ x \in \mathbb{R} \text{ | } y \leq \mathds{1}_{[a,+\infty [}(x) \times \left(1- \left(\dfrac{x}{a}\right)^{1-\alpha} \right) \bigr\}$ = $\bigl\{ x \in [a,+\infty [ \text{ | } y \leq \left(1- \left(\dfrac{x}{a}\right)^{1-\alpha} \right) \bigr\}$
+\end{minipage}
+\end{center}
+
+
+\newpage
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+inf$\bigl\{ x \in [a,+\infty [ \text{ | } y \leq 1- \left(\dfrac{x}{a}\right)^{1-\alpha} \bigr\}$ = inf$\bigl\{ x \in [a,+\infty [ \text{ | } y - 1 \leq - \left(\dfrac{x}{a}\right)^{1-\alpha} \bigr\}$ = sup$\bigl\{ x \in [a,+\infty [ \text{ | } \left(\dfrac{x}{a}\right)^{1-\alpha} \leq 1-y \bigr\}$ = sup$\bigl\{ x \in [a,+\infty [ \text{ | } \left(\dfrac{x}{a}\right) \leq \sqrt[1-\alpha]{1-y} \bigr\}$ = sup$\bigl\{ x \in [a,+\infty [ \text{ | } x \leq a\sqrt[1-\alpha]{1-y} \bigr\}$
+
+\end{minipage}
+
+Or $a\sqrt[1-\alpha]{1-y} = \dfrac{a}{\underbrace{\sqrt[\alpha-1]{1-y}}_{\in ]0,1[}} \in [a,+\infty [ \iff$
+
+$F_{X_{puissance}}^{\phantom{aa}-}(y) = sup\bigl\{ x \in [a,+\infty [ \text{ | } x \leq a\sqrt[1-\alpha]{1-y} \bigr\}$ = $sup[a,a\sqrt[1-\alpha]{1-y} ]$ = \colorbox{black!30}{$a\sqrt[1-\alpha]{1-y}$}
+\end{center}
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+A l'aune de cette information nouvelle, nous pouvons établir notre modèle de la sorte :  
+\end{minipage}
+
+\colorbox{black!30}{Soit $U \sim \mathcal{U}(]0,1[)$, $F_{X_{puissance}}^{\phantom{aa}-}(U) \sim X_{puissance}$}
+\end{center}
+
+
+\subsection{Conditions météorologiques et chaines de Markov $(H_k)_{k \in \mathbb{N}^{*}}$}
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+L'on cherche a réaliser un modèle simulant des observations journalières de nos états météorologique.
+
+Pour ce faire (et de façon assez naturelle, nous établirons une \textit{chaine de Markov} $(H_k)_{k \in \mathbb{N}^{*}}$, possédant les propriétés suivantes :
+
+\end{minipage}
+\end{center}
+
+
+
+
+
+\begin{description}
+
+\item[\bsc{* Processus Aléatoire $(H_k)_{k \in \mathbb{N}^{*}}$ : }]
+
+\textit{Soit $(H_k)_{k \in \mathbb{N}^{*}} \in (E, \mathcal{A}, \mathbb{P})^{\mathbb{N}^{*}}$}
+
+\phantom{aaaaaaa} — \textit{On note} $E = \{ \text{beau temps}, \text{temps couvert}, \text{pluie} \}$, dit \textit{« ensemble des états de $(H_k)_{k \in \mathbb{N}^{*}}$ »}.
+
+\phantom{aaaaaaa} — \textit{On note} $\mu_0$, \textit{une mesure de probabilité sur $(E, \mathcal{A})$, dite « loi initiale de $(H_k)_{k \in \mathbb{N}^{*}}$ », tel que $(\mu_0(i))_{i \in [|1,3|]}$, est une permutation quelconque de $(1,0,0)$}.
+
+\phantom{aaaaaaa} — \textit{On note} $Q \in M_3(\mathbb{R})$, \textit{une matrice stochastique, dite « matrice de transition de $(H_k)_{k \in \mathbb{N}^{*}}$ », tel que $\forall k \in \mathbb{N}^{*}$\footnotemark[1]} : 
+
+\begin{displaymath}
+\begin{bmatrix}
+\mathbb{P}(H_{k+1} = 1 | H_k = 1) & \mathbb{P}(H_{k+1} = 2 | H_k = 1) & \mathbb{P}(H_{k+1} = 3 | H_k = 1)\\
+\mathbb{P}(H_{k+1} = 1 | H_k = 2) & \mathbb{P}(H_{k+1} = 2 | H_k = 2) & \mathbb{P}(H_{k+1} = 3 | H_k = 2)\\
+\mathbb{P}(H_{k+1} = 1 | H_k = 3) & \mathbb{P}(H_{k+1} = 2 | H_k = 3) & \mathbb{P}(H_{k+1} = 3 | H_k = 3)
+\end{bmatrix}
+\end{displaymath}
+
+
+\end{description}
+
+
+
+
+\begin{tcolorbox}[colback=black!30,colbacklower=black!20,colframe=black!20,rightrule=1mm,sidebyside]
+
+
+\begin{displaymath}
+\begin{bmatrix}
+p_{1,1} & p_{1,2} & p_{1,3}\\
+p_{2,1} & p_{2,2} & p_{2,3}\\
+p_{3,1} & p_{3,2} & p_{3,3}
+\end{bmatrix}
+\end{displaymath}
+
+
+\tcblower
+\begin{tikzpicture}[->,>=stealth',shorten >=1.4pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+\node[main node] (1) {1};
+\node[main node] (2) [below left of=1] {2};
+\node[main node] (3) [below right of=1] {3};
+
+  \path[every node/.style={font=\sffamily\small}]
+    (1) edge node [left] {$p_{1,3}$} (3)
+        edge [bend right] node[left] {$p_{1,2}$} (2)
+        edge [loop above] node {$p_{1,1}$} (1)
+    (2) edge node [right] {$p_{2,1}$} (1)
+        edge node {$p_{2,3}$} (3)
+        edge [loop left] node {$p_{2,2}$} (2)
+        %edge [bend right] node[left] {$p_{2,1}$} (1)
+    (3) edge node [bend right] {$p_{3,2}$} (2)
+        edge [bend right] node[right] {$p_{3,1}$} (1)
+        edge [loop right] node[right] {$p_{3,3}$} (3);
+\end{tikzpicture}
+
+\end{tcolorbox}
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Vous trouverez en annexe la construction de notre \textit{« Table de Walker »}.
+
+\end{minipage}
+\end{center}
+
+
+\footnotetext[1]{Pour des raisons évidentes de lisibilité nous confondrons les états \textit{« beau temps »}, \textit{« temps couvert »} et \textit{« pluie »} avec les états respectifs : $1$, $2$, et $3$.}
+
+\newpage
+\section{Commentaires sur les techniques de programmation}
+\pagecolor{blue!20}
+
+
+
+\section{Les différents modèles}
+\subsection{Complexité algorithmique}
+\subsection{Vérifications d'usage}
 
 
 \part{Conclusion}
+\section{Commentaires sur la pertinence du modèle}
+\section{Évolutions possibles du modèle}
 \section{Commentaires}
 \section{Annexes et contacts}
+
+\subsection*{Annexes et contacts}
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.4\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.4\textwidth}
+
+
+\end{minipage}
+\end{center}
 
 
 
