@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.15)  26 OCT 2025 10:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.15)  11 NOV 2025 18:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1039,12 +1039,12 @@ LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
 (C:\Users\G603\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-<img1.png, id=82, 951.555pt x 475.7775pt>
+<img1.png, id=90, 951.555pt x 475.7775pt>
 File: img1.png Graphic file (type png)
 <use img1.png>
 Package pdftex.def Info: img1.png  used on input line 126.
 (pdftex.def)             Requested size: 113.80415pt x 56.90207pt.
-<img2.png, id=85, 677.53125pt x 677.53125pt>
+<img2.png, id=93, 677.53125pt x 677.53125pt>
 File: img2.png Graphic file (type png)
 <use img2.png>
 Package pdftex.def Info: img2.png  used on input line 128.
@@ -1209,19 +1209,30 @@ Overfull \hbox (31.4976pt too wide) in paragraph at lines 601--602
 [][] 
  []
 
-[7] [8] (Présentation.aux)
+[7]
+Overfull \hbox (56.01488pt too wide) in paragraph at lines 669--670
+[]$\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 )[]$ 
+ []
+
+
+Overfull \hbox (11.5598pt too wide) in paragraph at lines 671--672
+[][] \T1/cmr/m/n/10 ^^V $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 )
+[]$\T1/cmr/m/it/10 , une suite de pro-ces-sus de pois-son in-homog�ne
+ []
+
+[8] [9] [10] [11] [12] (Présentation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `Présentation.out' has not changed.
-(rerunfilecheck)             Checksum: F95A8966B2E8766F682D28959070BB08;3286.
+(rerunfilecheck)             Checksum: 224B8731ED3E29DE29A4B11C0C5AE8F9;3830.
  ) 
 Here is how much of TeX's memory you used:
- 39283 strings out of 474486
- 944117 string characters out of 5744227
+ 39291 strings out of 474486
+ 944204 string characters out of 5744227
  1949542 words of memory out of 5000000
- 60912 multiletter control sequences out of 15000+600000
+ 60914 multiletter control sequences out of 15000+600000
  587648 words of font info for 104 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,15n,94p,730b,1124s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1267,9 +1278,9 @@ Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/G603/AppData
 03/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 ><C:/Users/G603/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbo
 ls/msbm7.pfb>
-Output written on Présentation.pdf (8 pages, 431547 bytes).
+Output written on Présentation.pdf (12 pages, 455711 bytes).
 PDF statistics:
- 771 PDF objects out of 1000 (max. 8388607)
- 30 named destinations out of 1000 (max. 500000)
- 175 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 811 PDF objects out of 1000 (max. 8388607)
+ 36 named destinations out of 1000 (max. 500000)
+ 191 words of extra memory for PDF output out of 10000 (max. 10000000)
 

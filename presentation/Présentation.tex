@@ -617,6 +617,279 @@ Vous trouverez en annexe la construction de notre \textit{« Table de Walker »}
 
 \footnotetext[1]{Pour des raisons évidentes de lisibilité nous confondrons les états \textit{« beau temps »}, \textit{« temps couvert »} et \textit{« pluie »} avec les états respectifs : $1$, $2$, et $3$.}
 
+
+\newpage
+\subsection{Occurrences des sinistres (modèle A)}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+A chaque états de notre \textit{chaine de Markov} ($(1,2,3)$) est associée une valeur $\lambda_k \in \mathbb{R}_{+}^{*}$ (respectivement $(\lambda_1,\lambda_2,\lambda_3)$.
+
+Notons $N \in \mathbb{N}$, la taille de notre portefeuille.
+
+\textit{« On suppose que, pour chaque jour $k \in \mathbb{N}$, les dates des sinistres déclarés par l'assuré le jour $k$ suivent, conditionnellement à la valeur de $H_k$, un processus de Poisson d'intensité $\lambda_{H_k}$ »}.
+
+\phantom{aaaaaaa}
+
+Ainsi, nous définissons : 
+
+\end{minipage}
+\end{center}
+
+
+\begin{description}
+
+\item[\bsc{* Fonction}]
+
+\textit{$\Delta(\omega) : $ : $\mathbb{R}_{+} \to \mathbb{R}_{+}$}
+
+\begin{displaymath}
+	\Delta : 
+	\begin{cases}
+		\text{$\mathbb{R}_{+} \to \mathbb{R}_{+}$}\\
+		t \longmapsto \mathds{1}_{[0,365]}(t) \lambda_{H_{\lfloor t \rfloor}}
+	\end{cases}
+	.
+\end{displaymath}
+
+
+\item[\bsc{* Fonction}]
+
+\textit{$\mu(\omega) : $ : $\mathbb{R}_{+} \to \mathbb{R}_{+}$}
+
+\begin{displaymath}
+\mu(t) = \int_{0}^{t} \Delta(x) dx = \int_{0}^{t} \mathds{1}_{[0,365]}(x) \lambda_{H_{\lfloor x \rfloor}} dx
+\end{displaymath}
+
+
+\item[\bsc{* Suite de processus de poisson in-homogène mélange : }]
+
+\textit{$(R_t^{(k)})_{k \in [|1,N|]}$}
+
+\phantom{aaaaaaa} — \textit{$(R_t^{(k)})_{k \in [|1,N|]}$, une suite de processus de poisson in-homogène mélange indépendants.}
+
+\phantom{aaaaaaa} — \textit{$\forall (k,t) \in [|1,N|] \times \mathbb{R}_{+}$,  $R_t^{(k)} \sim P(\mu(t))$, le  processus de poisson in-homogène mélange indépendants représentant les temps d'occurrence des sinistres du contrat $k$.}
+
+\begin{displaymath}
+\forall t \in \mathbb{R}_{+} \text{, } R_t = \sum_{i=1}^{N} R_t^{(i)}
+\end{displaymath}
+
+\end{description}
+
+
+\begin{displaymath}
+\forall t \in [0,365] \text{, } \mu(t) = \int_{0}^{t} \Delta(x) dx = \int_{0}^{t} \mathds{1}_{[0,365]}(x) \lambda_{H_{\lfloor x \rfloor}} dx = \int_{0}^{t} \lambda_{H_{\lfloor x \rfloor}} dx
+\end{displaymath}
+
+\begin{displaymath}
+= \int_{0}^{1} \lambda_{H_{\lfloor x \rfloor}} dx + \int_{1}^{2} \lambda_{H_{\lfloor x \rfloor}} dx + ... + \int_{\lfloor t \rfloor - 1}^{\lfloor t \rfloor} \lambda_{H_{\lfloor x \rfloor}} dx + \int_{\lfloor t \rfloor}^{t} \lambda_{H_{\lfloor x \rfloor}} dx
+\end{displaymath}
+
+\begin{displaymath}
+= \int_{0}^{1} \lambda_{H_{0}} dx + \int_{1}^{2} \lambda_{H_{1}} dx + ... + \int_{\lfloor t \rfloor - 1}^{\lfloor t \rfloor} \lambda_{H_{\lfloor t \rfloor - 1}} dx + \int_{\lfloor t \rfloor}^{t} \lambda_{H_{\lfloor t \rfloor}} dx
+\end{displaymath}
+
+\begin{displaymath}
+= \lambda_{H_{0}} + \lambda_{H_{1}} + ... + \lambda_{H_{\lfloor t \rfloor - 1}} + \int_{\lfloor t \rfloor}^{t} \lambda_{H_{\lfloor t \rfloor}} dx
+\end{displaymath}
+
+
+\begin{displaymath}
+= \sum_{i=0}^{\lfloor t \rfloor - 1} \lambda_{H_{i}} + \lambda_{H_{\lfloor t \rfloor}} \times (t - \lfloor t \rfloor)
+\end{displaymath}
+
+
+\newpage
+\begin{displaymath}
+\forall t \in \mathbb{R}_{+} \text{, } R_t = \sum_{i=1}^{N} \underbrace{R_t^{(i)}}_{\sim P(\mu(t))} \sim P(N\times \mu(t)) \iff
+\end{displaymath}
+
+\begin{displaymath}
+R_t \text{est un processus de poisson in-homogène mélange d'intensité : } \Delta^{*} = N \Delta
+\end{displaymath}
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Il nous suffit donc de simuler une seule loi de poisson pour nos $N$ contrats.
+\end{minipage}
+
+Posons donc : $\forall t \in \mathbb{R}$, \colorbox{black!30}{$\Delta^{*}(t) = N \mathds{1}_{[0,365]}(t) \lambda_{H_{\lfloor t \rfloor}}$.}
+\end{center}
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Cette définition a le bon gout d'être aisément majorable par une formule simple : $N \times max(\lambda_1,\lambda_2,\lambda_3)$.
+\end{minipage}
+\end{center}
+
+
+
+\newpage
+\subsection{Probabilité de Ruine Annuelle (modèle A)}
+
+\begin{description}
+
+\item[\bsc{* Modèle de Réserves : }]
+
+\textit{$\forall (N, u, c) \in \mathbb{N} \times \mathbb{R}^2$, $(T_i)_{i \in \mathbb{N}^{*}}$, une suite de variables aléatoires identiquement distribuées et croissantes.}
+
+\phantom{aaaaaaa} — \textit{On note $N$, la taille de notre portefeuille.}
+
+\phantom{aaaaaaa} — \textit{On note $u$, l'investissement initial et individuel par assurés.}
+
+\phantom{aaaaaaa} — \textit{On note $c$, le taux de prime par assuré et par unité de temps.}
+
+\phantom{aaaaaaa} — \textit{On note $(T_i)_{i \in \mathbb{N}^{*}}$, la suite des dates de sinistres déclarés (de tous les assurés). La suite est par ailleurs ordonnée.}
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{$\forall t \in \mathbb{R}^{+} :$}
+
+\[ R_t = Nu + Nct - \sum_{i=1}^{+ \infty} \mathds{1}_{[0,t]}(T_i) \text{ } X_i \]
+
+
+\item[\bsc{* Partition $A$ de $[0,365]$ : }]
+
+\textit{$\forall k \in \mathbb{N}$.}
+
+\phantom{aaaaaaa} — \textit{$n = inf \bigl\{ k \in \mathbb{N}^{*} | T_k \in [0,365] \bigr\}$}
+
+\begin{displaymath}
+A_k =
+\begin{cases}
+	[0,T_1[ \text{ , si k = } 0 \\
+	[T_k, T_{k+1}[ \text{ , si } k \in [|1, n-1 |] \\
+	[T_n,365] \text{ , si } k = n \\
+	\emptyset \text{ , sinon }
+\end{cases}
+\end{displaymath}
+
+
+\phantom{aaaaaaaaaaaaaaa} — \textit{$(A_k)_{k \in \mathbb{N}}$ forme une partition de $[0,365]$.}
+\end{description}
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Soit : $\forall \omega \in \Omega$, $R_t(\omega)$, est bien définie sur $[0,365]$.
+On a donc : 
+\end{minipage}
+\end{center}
+
+\[ \min_{t \in [0,365]} R_t(\omega) = \min_{k \in [|0,n|]} (\min_{t \in A_k} R_t(\omega)) \]
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Cette partition ($(A_k)_{k \in \mathbb{N}}$), nous permet d'exprimer tout minimum local ($\min_{t \in A_k} R_t(\omega)$), sous une forme explicite (plus ou moins simple) : 
+\end{minipage}
+\end{center}
+
+\[ \forall (k,t) \in \mathbb{N} \times A_k, \text{ } R_t(\omega) = Nu + Nct - \sum_{i=1}^{+ \infty} \mathds{1}_{[0,t]}(T_i(\omega)) \text{ } X_i(\omega) \]
+
+\[ = Nu + Nct - \sum_{i=1}^{k} X_i(\omega) \iff \]
+
+\begin{displaymath}
+\min_{t \in A_k} R_t(\omega) =
+\begin{cases}
+	Nu \text{ , si k = } 0 \\
+	Nu + NcT_k(\omega) - \sum_{i=1}^{k} X_i(\omega) \text{ , si } k \in [|1, n |]
+\end{cases}
+\end{displaymath}
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+, car par soucis de réalisme l'on considère (par soucis de réalisme) que $c \in \mathbb{R}_{+}^{*}.$
+\end{minipage}
+\end{center}
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Nous avons donc le résultat suivant : 
+\end{minipage}
+\end{center}
+
+\[ \min_{t \in [0,365]} R_t(\omega) = Nu + \min_{k \in [|1,n|]} (NcT_k(\omega) - \sum_{i=1}^{k} X_i(\omega)) \]
+
+\[ = Nu + \min_{k \in [|1,n|]} (\sum_{i=1}^{k} (\dfrac{NcT_k(\omega)}{k} - X_i(\omega))) \]
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Ce résultat nous permet de caractériser l'événement suivant :
+\end{minipage}
+\end{center}
+
+
+\[ \left( \min_{t \in [0,365]} R_t < 0 \right) = \left( \exists k \in [|1,n|] \text{ , tel que : } \sum_{i=1}^{k} (\dfrac{NcT_k}{k} - X_i) < -Nu \right) \]
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Il nous suffirait donc de procédé pas a pas.
+\end{minipage}
+\end{center}
+
+\[ \text{Soit } (V_j)_{j \in \mathbb{N}} \text{, une suite de v.a.i.i.d., tel que } \forall j \in \mathbb{N}, \]
+
+
+\[ V_j \sim \mathbb{B}(\mathbb{P} \left( \exists k \in [|1,n|] \text{ , tel que : } \sum_{i=1}^{k} (\dfrac{NcT_k}{k} - X_i) < -Nu \right) )\]
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Par loi des grands nombres nous avons :
+\end{minipage}
+\end{center}
+
+
+
+\[ \dfrac{1}{p} \sum_{j=1}^{p} V_j \underset{p \to +\infty}{\overset{p.s.}{\longrightarrow}} \mathbb{P}\left( \min_{t \in [0,365]} R_t < 0 \right) \]
+
+
+
+
+
+
+
+
+
+
 \newpage
 \section{Commentaires sur les techniques de programmation}
 \pagecolor{blue!20}
