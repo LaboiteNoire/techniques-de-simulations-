@@ -418,6 +418,72 @@ sont corrélés à travers des conditions météo communes.
 
 
 \section{Organisation du travail}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+
+Concernant l'organisation du travail, nous avons jugé nécessaire de mettre en place un
+environnement permettant de partager facilement nos ébauches de code, l'avancée du rendu ainsi
+que tout document utile au bon déroulement du projet. Pour cela, nous avons créé une page \href{https://github.com/LaboiteNoire/techniques-de-simulations-}{\textit{GitHub}}
+dédiée.
+
+\phantom{aaaaaaa}
+
+La communication s'est faite principalement via un groupe de discussion sur les réseaux sociaux,
+mais aussi lors d'échanges directs en classe ou au cours de réunions informelles consacrées à
+l'avancement du projet.
+
+\phantom{aaaaaaa}
+
+Sur le plan technique, la première séance en classe a été consacrée à l'analyse de chaque question
+afin de déterminer les méthodes de simulation à utiliser et les optimisations possibles. Suite à cela,
+le rôle de \href{https://github.com/priscilla1269}{\textit{Priscilla}} a été plutôt dirigé vers les implémentations de techniques de simulations
+« classiques » tandis que \href{https://github.com/LaboiteNoire}{\textit{Mahlî}} a lui été plutôt chargé du côté optimisation du code notamment :
+\textit{table de Walker}, classes...
+
+\phantom{aaaaaaa}
+
+Cela dit, de nombreuses parties du code ont été développées conjointement : chacun ayant parfois
+besoin des conseils, des idées ou de l'expertise de l'autre pour la mise en place de structures de
+données adaptées et pour garantir la cohérence globale de l'implémentation.
+
+\phantom{aaaaaaa}
+
+
+Enfin, nous avons choisi de travailler sur un \textit{Notebook Python}, un format qui nous a semblé plus
+pratique pour organiser notre code, structurer nos sections et ajouter facilement titres et
+commentaires. Par souci de clarté et de rigueur, nous avons rédigé les démonstrations
+mathématiques associées aux différentes étapes de nos algorithmes. Conscients que ces éléments ne
+constituent pas le cœur de la matière, nous avons choisi de les regrouper dans une annexe, où elles
+restent consultables si nécessaire.
+
+\end{minipage}
+\end{center}
+
+
+\subsection{Notes d'updates}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+
+Une section que l'on supprimera lors du projet final, mais qui me permet de laisser quelques petits commentaires.
+
+Autant je peux concevoir l'utilité de faire une section optimisée et non optimisée pour $X_{norm}$, autant (comme tu l'as très justement fait remarquer) je ne pense pas que cela soit pertinent pour $X_{puissance}$.
+
+Pour ce qui est de la simulation (et des démos) pour les sinistres (excluant $X_{puissance}$), je les ferais par la suite, je fini de paralléliser les calculs du modèle A et B.
+
+J'ai rajouter une partie sur la table de Walker et les questions de complexité.
+
+\textbf{Note a moi même : enlevé les tests en fin de page 5.}
+
+
+
+\end{minipage}
+\end{center}
 
 
 \part{Modélisation}
@@ -567,7 +633,7 @@ Pour ce faire (et de façon assez naturelle, nous établirons une \textit{chaine
 
 
 
-\begin{tcolorbox}[colback=black!30,colbacklower=black!20,colframe=black!20,rightrule=1mm,sidebyside]
+\begin{tcolorbox}[colback=black!30,colbacklower=black!20,colframe=black!20,rightrule=1mm,sidebyside,arc=0mm]
 
 
 \begin{displaymath}
@@ -604,18 +670,78 @@ p_{3,1} & p_{3,2} & p_{3,3}
 
 
 
+\footnotetext[1]{Pour des raisons évidentes de lisibilité nous confondrons les états \textit{« beau temps »}, \textit{« temps couvert »} et \textit{« pluie »} avec les états respectifs : $1$, $2$, et $3$.}
+
+
+
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-Vous trouverez en annexe la construction de notre \textit{« Table de Walker »}.
 
+\textbf{\textit{Commentaires sur l'implémentation de la chaine de markov}}
+
+\phantom{aaaaaaa}
+
+Une première approche a été de partitionner notre intervalle : $[0,1]$, de telle sorte a pouvoir simuler n'importe qu'elle variable aléatoire a support fini, a l'aide d'une loi uniforme.
+
+Cette approche a le malheureux inconvénient d'avoir (parmi ses implémentations les moins naïves), une complexité de l'ordre de $o(nln(n))$\footnotemark[1].
+
+\phantom{aaaaaaa}
+
+Comparativement, une autre approche dite de \textit{« Table de Walker\footnotemark[2] »} (certes plus couteuse en temps d'initialisation), a le bon gout d'avoir une complexité de l'ordre : $o(1)$.
+
+\phantom{aaaaaaa}
+
+« La \textit{méthode optimale} serait-elle fonction des conditions initiales? ». La question ne manque pas pertinence, après tout notre loi a support finie ne possède que 3 états. En ce sens une \textit{« Table de Walker »} est-elle réellement une méthode plus optimale que notre \textit{approche naïve}?
+
+\phantom{aaaaaaa}
+
+A cela nous avons deux objections :
+
+\phantom{aaaaaaa}
+
+ — Pour $k \in \mathbb{N}$, la simulation d'un trajectoire a $k$ étapes, d'une \textit{chaine de Markov} a $n$ états serait de l'ordre de $o(knln(n))$ avec notre approche naïve et de $o(k)$ avec notre \textit{table de walker\footnotemark[3]}.
+ 
+ — Simuler convenablement des conditions météorologique a l'aide d'une unique \textit{chaine de Markov} a 3 états, nous apparait fort improbable. Il est fort a parier que l'utilisateur sera amené a faire varier le nombre d'états : $n$. En ce sens, notre \textit{« modèle a Table de Walker »}, se montre beaucoup plus robuste que le précédent.
+ 
+\phantom{aaaaaaa}
+
+Ainsi, nous faisons donc le pari de la \textit{robustesse} et de \textit{l'adaptabilité} de notre modèle. 
+
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1.4pt,auto,node distance=2cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+\node[main node] (1) {1};
+\node[main node] (2) [below left of=1] {2};
+\node[main node] (3) [below right of=1] {3};
+
+  \path[every node/.style={font=\sffamily\small}]
+    (1) edge node [left] {$p_{1,3}$} (3)
+        edge [bend right] node[left] {$p_{1,2}$} (2)
+        edge [loop above] node {$p_{1,1}$} (1)
+    (2) edge node [right] {$p_{2,1}$} (1)
+        edge node {$p_{2,3}$} (3)
+        edge [loop left] node {$p_{2,2}$} (2)
+        %edge [bend right] node[left] {$p_{2,1}$} (1)
+    (3) edge node [bend right] {$p_{3,2}$} (2)
+        edge [bend right] node[right] {$p_{3,1}$} (1)
+        edge [loop right] node[right] {$p_{3,3}$} (3);
+\end{tikzpicture}
+\end{center}
+ 
+
+
+\footnotetext[1]{$n = |E|$ et $E$, l'ensemble des états de la variable aléatoire a support fini.}
+
+\footnotetext[2]{Vous trouverez en annexe la construction de notre \textit{« Table de Walker »}.}
+
+\footnotetext[3]{Nous ne comptons pas l'étape d'initialisation, qui est dans le pire des cas d'ordre $o(n^2)$.}
 \end{minipage}
 \end{center}
-
-
-\footnotetext[1]{Pour des raisons évidentes de lisibilité nous confondrons les états \textit{« beau temps »}, \textit{« temps couvert »} et \textit{« pluie »} avec les états respectifs : $1$, $2$, et $3$.}
 
 
 \newpage
@@ -728,9 +854,29 @@ Posons donc : $\forall t \in \mathbb{R}$, \colorbox{black!30}{$\Delta^{*}(t) = N
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-Cette définition a le bon gout d'être aisément majorable par une formule simple : $N \times max(\lambda_1,\lambda_2,\lambda_3)$.
+Cette définition a le bon gout d'être aisément majorable par une formule simple : $\theta = N \times max(\lambda_1,\lambda_2,\lambda_3)$.
 \end{minipage}
 \end{center}
+
+
+
+
+\begin{tcolorbox}[colback=black!30,colbacklower=black!20,colframe=black!20,rightrule=1mm,arc=0mm]
+
+
+\begin{center}
+Montrons nous toutefois sceptiques vis a vis de notre modèle.
+
+Partir du postulat que nos assurés partage une météo commune, n'est pas une idée totalement absurde dans l'absolue, mais reste néanmoins extrêmement discutable dans les faits. Il faudrait pour cela faire l'hypothèse que nos assurés vivent sur un même territoire et que ce territoire est assez restreint pour que sa météo reste uniforme et uni-variée.
+
+Le modèle B, fait l'hypothèse inverse (qui est tout aussi discutable).
+
+Notre modèle A repose sur une autre hypothèse : que l'état de la météo au jour $n$, dépends uniquement de l'état de la météo au jours $n-1$.
+
+Nous n'expliqueront pas a quel point cette hypothèse est absurde, néanmoins la valeur d'un modèle ne se limite pas a la somme de la valeur de ses axiomes (ex : les modèles de base de la micro-économie).
+\end{center}
+
+\end{tcolorbox}
 
 
 
@@ -883,8 +1029,44 @@ Par loi des grands nombres nous avons :
 
 
 
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k} - X_i)$ et d'une autre $\sum_{j=1}^{p} V_j$ ), rend le problème parallélisable.
+\end{minipage}
+\end{center}
 
 
+\phantom{aaaaaaa}
+
+\phantom{aaaaaaa}
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+
+\textbf{\textit{Réduction de variance}}
+
+\phantom{aaaaaaa}
+
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+
+
+
+\subsection{Occurrences des sinistres (modèle B)}
+\subsection{Probabilité de Ruine Annuelle (modèle B)}
 
 
 
@@ -904,6 +1086,18 @@ Par loi des grands nombres nous avons :
 \part{Conclusion}
 \section{Commentaires sur la pertinence du modèle}
 \section{Évolutions possibles du modèle}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+
+Interfaçage avec d'autres langages peut-être plus performants : R, C++
+
+NB : vérifier que R soit plus performant que python.
+
+\end{minipage}
+\end{center}
 \section{Commentaires}
 \section{Annexes et contacts}
 

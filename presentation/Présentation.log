@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.15)  11 NOV 2025 18:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.15)  29 NOV 2025 20:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1039,12 +1039,12 @@ LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
 (C:\Users\G603\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-<img1.png, id=90, 951.555pt x 475.7775pt>
+<img1.png, id=102, 951.555pt x 475.7775pt>
 File: img1.png Graphic file (type png)
 <use img1.png>
 Package pdftex.def Info: img1.png  used on input line 126.
 (pdftex.def)             Requested size: 113.80415pt x 56.90207pt.
-<img2.png, id=93, 677.53125pt x 677.53125pt>
+<img2.png, id=105, 677.53125pt x 677.53125pt>
 File: img2.png Graphic file (type png)
 <use img2.png>
 Package pdftex.def Info: img2.png  used on input line 128.
@@ -1140,99 +1140,100 @@ Overfull \hbox (10.58112pt too wide) in paragraph at lines 383--384
 /10 X[]$\T1/cmr/m/it/10 ,
  []
 
+[5] [6]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 425.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 425.
+(hyperref)                removing `math shift' on input line 491.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 425.
+(hyperref)                removing `subscript' on input line 491.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 426.
+(hyperref)                removing `math shift' on input line 491.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 426.
+(hyperref)                removing `math shift' on input line 492.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 426.
+(hyperref)                removing `subscript' on input line 492.
 
-[5]
-Underfull \hbox (badness 1490) in paragraph at lines 436--437
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 492.
+
+
+Underfull \hbox (badness 1490) in paragraph at lines 502--503
 []$\OML/cmm/m/it/10 X[]$ \T1/cmr/m/n/10 est une va-riable aléa-toire conti-nue,
  de den-sité
  []
 
-[6]
-Overfull \hbox (19.99326pt too wide) in paragraph at lines 526--526
+[7]
+Overfull \hbox (19.99326pt too wide) in paragraph at lines 592--592
 []\T1/cmr/bx/n/12 Conditions mé-téo-ro-lo-giques et chaines de Mar-kov $\OT1/cm
 r/m/n/12 (\OML/cmm/m/it/12 H[]\OT1/cmr/m/n/12 )[]$ 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 526.
+(hyperref)                removing `math shift' on input line 592.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 526.
+(hyperref)                removing `subscript' on input line 592.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 526.
+(hyperref)                removing `subscript' on input line 592.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\in' on input line 526.
+(hyperref)                removing `\in' on input line 592.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 526.
+(hyperref)                removing `superscript' on input line 592.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 526.
+(hyperref)                removing `math shift' on input line 592.
 
-LaTeX Font Info:    Trying to load font information for T1+cmss on input line 5
-86.
+LaTeX Font Info:    Trying to load font information for T1+cmss on input line 6
+52.
 (C:\Users\G603\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmss.fd
 File: t1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-Overfull \hbox (31.4976pt too wide) in paragraph at lines 601--602
+Overfull \hbox (31.4976pt too wide) in paragraph at lines 667--668
 [][] 
  []
 
-[7]
-Overfull \hbox (56.01488pt too wide) in paragraph at lines 669--670
+[8] [9]
+Overfull \hbox (56.01488pt too wide) in paragraph at lines 795--796
 []$\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 )[]$ 
  []
 
 
-Overfull \hbox (11.5598pt too wide) in paragraph at lines 671--672
+Overfull \hbox (11.5598pt too wide) in paragraph at lines 797--798
 [][] \T1/cmr/m/n/10 ^^V $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 )
 []$\T1/cmr/m/it/10 , une suite de pro-ces-sus de pois-son in-homogène
  []
 
-[8] [9] [10] [11] [12] (PrÃ©sentation.aux)
+[10] [11] [12] [13] [14] (PrÃ©sentation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `PrÃ©sentation.out' has not changed.
-(rerunfilecheck)             Checksum: 224B8731ED3E29DE29A4B11C0C5AE8F9;3830.
+(rerunfilecheck)             Checksum: D609643FC567C307E205B4F7F894E794;4510.
  ) 
 Here is how much of TeX's memory you used:
- 39291 strings out of 474486
- 944204 string characters out of 5744227
- 1949542 words of memory out of 5000000
- 60914 multiletter control sequences out of 15000+600000
+ 39303 strings out of 474486
+ 944365 string characters out of 5744227
+ 1955542 words of memory out of 5000000
+ 60921 multiletter control sequences out of 15000+600000
  587648 words of font info for 104 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,15n,94p,730b,1124s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1278,9 +1279,9 @@ Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/G603/AppData
 03/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 ><C:/Users/G603/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbo
 ls/msbm7.pfb>
-Output written on PrÃ©sentation.pdf (12 pages, 455711 bytes).
+Output written on PrÃ©sentation.pdf (14 pages, 483753 bytes).
 PDF statistics:
- 811 PDF objects out of 1000 (max. 8388607)
- 36 named destinations out of 1000 (max. 500000)
- 191 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 886 PDF objects out of 1000 (max. 8388607)
+ 41 named destinations out of 1000 (max. 500000)
+ 215 words of extra memory for PDF output out of 10000 (max. 10000000)
 
