@@ -5,7 +5,7 @@
 \contentsline {subsection}{\numberline {0.3}Objets du Problème}{5}{subsection.0.3}%
 \contentsline {section}{\numberline {1}Organisation du travail}{6}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Notes d'updates}{6}{subsection.1.1}%
-\contentsline {part}{II\hspace {1em}Modélisation}{7}{part.2}%
+\contentsline {part}{II\hspace {1em}Modélisation}{6}{part.2}%
 \contentsline {section}{\numberline {2}modélisation}{7}{section.2}%
 \contentsline {subsection}{\numberline {2.1}simulation de $X_{norm}$}{7}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Simulation de $X_{puissance}$}{7}{subsection.2.2}%
@@ -15,11 +15,17 @@
 \contentsline {subsection}{\numberline {2.6}Occurrences des sinistres (modèle B)}{13}{subsection.2.6}%
 \contentsline {subsection}{\numberline {2.7}Probabilité de Ruine Annuelle (modèle B)}{13}{subsection.2.7}%
 \contentsline {section}{\numberline {3}Commentaires sur les techniques de programmation}{14}{section.3}%
-\contentsline {section}{\numberline {4}Les différents modèles}{14}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Complexité algorithmique}{14}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Vérifications d'usage}{14}{subsection.4.2}%
-\contentsline {part}{III\hspace {1em}Conclusion}{14}{part.3}%
-\contentsline {section}{\numberline {5}Commentaires sur la pertinence du modèle}{14}{section.5}%
-\contentsline {section}{\numberline {6}Évolutions possibles du modèle}{14}{section.6}%
-\contentsline {section}{\numberline {7}Commentaires}{14}{section.7}%
-\contentsline {section}{\numberline {8}Annexes et contacts}{14}{section.8}%
+\contentsline {subsection}{\numberline {3.1}Dépendances}{14}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}$X_{norm}$}{14}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}$X_{puissance}$}{16}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}$Z$}{16}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}$X$}{16}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Vérifications d'usage}{16}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Les différents modèles}{16}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Complexité algorithmique}{16}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Implémentation CuPy}{16}{subsection.4.2}%
+\contentsline {part}{III\hspace {1em}Conclusion}{16}{part.3}%
+\contentsline {section}{\numberline {5}Commentaires sur la pertinence du modèle}{16}{section.5}%
+\contentsline {section}{\numberline {6}Évolutions possibles du modèle}{16}{section.6}%
+\contentsline {section}{\numberline {7}Commentaires}{17}{section.7}%
+\contentsline {section}{\numberline {8}Annexes et contacts}{17}{section.8}%

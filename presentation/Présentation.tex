@@ -28,6 +28,8 @@
 \usepackage{dsfont}
 \usepackage{xr-hyper} 
 \usepackage{hyperref} 
+\usepackage{algpseudocode}
+\usepackage{algorithm}
 \externaldocument[B-]{docB}[Annexe01.pdf]% <- full or relative path
 
 
@@ -48,6 +50,7 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 
 
@@ -415,6 +418,8 @@ sont corrélés à travers des conditions météo communes.
 
 \href{run:./foo.tex}{test}
 
+\href{run:./file.txt}{File.txt}
+
 
 
 \section{Organisation du travail}
@@ -474,11 +479,12 @@ Une section que l'on supprimera lors du projet final, mais qui me permet de lais
 
 Autant je peux concevoir l'utilité de faire une section optimisée et non optimisée pour $X_{norm}$, autant (comme tu l'as très justement fait remarquer) je ne pense pas que cela soit pertinent pour $X_{puissance}$.
 
-Pour ce qui est de la simulation (et des démos) pour les sinistres (excluant $X_{puissance}$), je les ferais par la suite, je fini de paralléliser les calculs du modèle A et B.
+\textbf{Il faut paralléliser la génération des sinistres du modèle A (compliqué, mais largement faisable)}
 
-J'ai rajouter une partie sur la table de Walker et les questions de complexité.
 
 \textbf{Note a moi même : enlevé les tests en fin de page 5.}
+
+\textbf{Note a moi même : enlevé les \_ de x\_0 dans les codeblock}
 
 
 
@@ -582,7 +588,7 @@ $F_{X_{puissance}}^{\phantom{aa}-}(y) = sup\bigl\{ x \in [a,+\infty [ \text{ | }
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-A l'aune de cette information nouvelle, nous pouvons établir notre modèle de la sorte :  
+\hypertarget{ref1}{A l'aune de cette information nouvelle, nous pouvons établir notre modèle de la sorte} :  
 \end{minipage}
 
 \colorbox{black!30}{Soit $U \sim \mathcal{U}(]0,1[)$, $F_{X_{puissance}}^{\phantom{aa}-}(U) \sim X_{puissance}$}
@@ -879,6 +885,17 @@ Nous n'expliqueront pas a quel point cette hypothèse est absurde, néanmoins la
 \end{tcolorbox}
 
 
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img3}
+\end{center}
+
+
+
+
+
+
+
+
 
 \newpage
 \subsection{Probabilité de Ruine Annuelle (modèle A)}
@@ -1039,6 +1056,11 @@ Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k}
 \end{center}
 
 
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img4}
+\end{center}
+
+
 \phantom{aaaaaaa}
 
 \phantom{aaaaaaa}
@@ -1078,9 +1100,323 @@ Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k}
 
 
 
+\subsection{Dépendances}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+\end{minipage}
+\begin{minipage}[r]{0.82\textwidth}
+
+\textcolor{teal}{import} random as rd
+
+\textcolor{teal}{import} numpy as np
+
+\textcolor{teal}{import} matplotlib.pyplot as plt \textcolor{mymauve}{\# graphics}
+
+\textcolor{teal}{import} plotly.express as px \textcolor{mymauve}{\# graphics}
+
+\textcolor{teal}{import} threading \textcolor{mymauve}{\# parallélisation}
+
+\textcolor{teal}{import} bisect \textcolor{mymauve}{\# insertion dans une liste triée}
+
+\end{minipage}
+\end{center}
+
+
+
+\subsection{$X_{norm}$}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+$f_{norm}$, est une fonction complexe et au vu de sa forme, il parait fort peu probable de trouver une forme explicite a son intégrale (sur un intervalle quelconque).
+
+\phantom{aaaaaaa}
+
+Une méthode similaire a celle de \textit{Box-Muller}, a brièvement été évoquer, sans succès.
+
+\phantom{aaaaaaa}
+
+« La méthode du rejet semble donc s'imposer d'elle même ? ». Il s'agit encore d'une question d'arbitrage.
+Faut-il faire le choix de la meilleure des complexité, en approchant la fonction de répartition de  $X_{norm}$, par des formules explicites incorrectes, ou préférer a la complexité une juste représentation de sa loi?
+
+\phantom{aaaaaaa}
+
+Nous avons de prime abord opté pour l'implémentation d'une méthode de rejet dont le support serait une la loi uniforme $U([0,b])$\footnotemark[1].
+
+De plus, la majoration suivante, apparait de façon quasi-immédiate : $f_{norm} \leq 2$.
+
+
+
+\footnotetext[1]{La densité $f_{norm}$ étant nulle en dehors de l'intervalle $[0,b]$, il est naturel d'utiliser comme loi de proposition une uniforme sur ce même intervalle.}
+\end{minipage}
+\end{center}
+
+
+\begin{algorithm}
+\caption{Algorithme de rejet}
+\begin{algorithmic}[1]
+\State $i \gets True$
+\While{$i$}
+\State $U \gets \sim U([0,b])$
+\State $Y \gets \sim U([0,2])$
+\If {$Y \leq f_{norm}(U)$}
+\textbf{return } $U$
+\EndIf
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\newpage
+\textbf{Première approche :}
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{f\_norm}(x : \textcolor{codegreen}{float}, x\_0 : \textcolor{codegreen}{float}, b : \textcolor{codegreen}{float}, sigma : \textcolor{codegreen}{float}, delta : \textcolor{codegreen}{float}):
+
+\phantom{aaaa}ind = (x \textcolor{mymauve}{>=} \textcolor{codegreen}{0}) \textcolor{mymauve}{\&} (x \textcolor{mymauve}{<=} b)
+
+\phantom{aaaa}\textcolor{teal}{return} ind\textcolor{mymauve}{*}(np.\textcolor{teal}{exp}(-((x - x0)\textcolor{mymauve}{**}\textcolor{codegreen}{2}) \textcolor{mymauve}{/} (\textcolor{codegreen}{2} \textcolor{mymauve}{*} sigma\textcolor{mymauve}{**}\textcolor{codegreen}{2})) * (\textcolor{codegreen}{1} + np.\textcolor{teal}{cos}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{teal}{pi}\textcolor{mymauve}{*}(x - x0)\textcolor{mymauve}{/}delta)\textcolor{mymauve}{**}\textcolor{codegreen}{2}))
+
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\phantom{aa}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{echantillon\_f\_norm}(x\_0 : \textcolor{codegreen}{float}, b : \textcolor{codegreen}{float}, sigma : \textcolor{codegreen}{float}, delta : \textcolor{codegreen}{float}, n : \textcolor{codegreen}{int}):
+
+\phantom{aaaa}res \textcolor{mymauve}{=} $[]$
+
+\phantom{aaaa}\textcolor{teal}{while len}(res) \textcolor{mymauve}{<} n:
+
+\phantom{aaaaaaaa}X \textcolor{mymauve}{=} np.\textcolor{teal}{random.uniform}(\textcolor{codegreen}{0}, b) \textcolor{mymauve}{\# \textit{f\_norm est nulle sur [b,inf]}}
+
+\phantom{aaaaaaaa}Y \textcolor{mymauve}{=} np.\textcolor{teal}{random.uniform}(\textcolor{codegreen}{0}, M)
+
+\phantom{aaaaaaaa}\textcolor{teal}{if} Y \textcolor{mymauve}{<=} f\_norm(X,x0,b,sigma,delta):
+
+\phantom{aaaaaaaaaaaa}res.\textcolor{teal}{append}(X) \textcolor{mymauve}{\# \textit{condition d'acceptation}}
+
+\phantom{aaaa}\textcolor{teal}{return} res
+\end{minipage}
+\end{center}
+
+\phantom{aaaa}
+
+\textbf{Deuxième approche :}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Conscients que
+cette méthode n'est sans doute pas la plus efficace au vue de la forme de $f_{norm}$ nous avons donc opté pour une seconde méthode.
+
+La loi $\mathbb{P}_{norm}$ étant très proches d'une loi normale, nous avons pensé à faire une méthode de rejet vis a vis de cette dernière.
+
+\phantom{aaaa}
+
+Nous avons donc majoré le rapport $\dfrac{f_{norm}}{g}$, avec $g$ la densité d'une loi normale.
+
+Cela garantit une meilleure efficacité du rejet : la probabilité d'acceptation augmente, et donc le
+nombre moyen d'itérations\footnotemark[1] pour accepter un point diminue.
+
+\footnotetext[1]{Qui fut précédemment de l'ordre de $2b$.}
+\end{minipage}
+\end{center}
+
+
+
+
+\begin{algorithm}
+\caption{Algorithme de rejet}
+\begin{algorithmic}[1]
+\State $i \gets True$
+\While{$i$}
+\State $U \gets \sim $ loi de densité $g$
+\State $Y \gets \sim U([0,M])$
+\If {$Y \times g(U) \leq f(U)$}
+\textbf{return } $U$
+\EndIf
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{Nouvelle approche :}
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{g}(x : \textcolor{codegreen}{float}, x\_0 : \textcolor{codegreen}{float}, sigma : \textcolor{codegreen}{float}):
+
+\phantom{aaaa}ind = (x \textcolor{mymauve}{>=} \textcolor{codegreen}{0}) \textcolor{mymauve}{\&} (x \textcolor{mymauve}{<=} b)
+
+\phantom{aaaa}\textcolor{teal}{return} (\textcolor{codegreen}{1} \textcolor{mymauve}{/} (np.\textcolor{teal}{sqrt}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{teal}{pi})\textcolor{mymauve}{*}sigma)) \textcolor{mymauve}{*} np.\textcolor{teal}{exp}(-((x - x0)\textcolor{mymauve}{**}\textcolor{codegreen}{2}) \textcolor{mymauve}{/} (\textcolor{codegreen}{2} \textcolor{mymauve}{*} sigma\textcolor{mymauve}{**}\textcolor{codegreen}{2}))
+
+\end{minipage}
+\end{center}
+
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\phantom{aa}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{echantillon\_f\_norm\_opt}(x\_0 : \textcolor{codegreen}{float}, b : \textcolor{codegreen}{float}, sigma : \textcolor{codegreen}{float}, delta : \textcolor{codegreen}{float}, n : \textcolor{codegreen}{int}):
+
+\phantom{aaaa}M \textcolor{mymauve}{=} \textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{teal}{sqrt}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{teal}{pi})\textcolor{mymauve}{*}sigma
+
+\phantom{aaaa}res \textcolor{mymauve}{=} $[]$
+
+\phantom{aaaa}\textcolor{teal}{while len}(res) \textcolor{mymauve}{<} n:
+
+\phantom{aaaaaaaa}X \textcolor{mymauve}{=} np.\textcolor{teal}{random.normal}(\textcolor{codegreen}{x0}, sigma)
+
+\phantom{aaaaaaaa}Y \textcolor{mymauve}{=} np.\textcolor{teal}{random.uniform}(\textcolor{codegreen}{0}, M)
+
+\phantom{aaaaaaaa}\textcolor{teal}{if} Y\textcolor{mymauve}{*}g(X,x0,sigma) <= f\_norm(X,x0,b,sigma,delta):
+
+\phantom{aaaaaaaaaaaa}res.\textcolor{teal}{append}(X) \textcolor{mymauve}{\# \textit{condition d'acceptation}}
+
+\phantom{aaaa}\textcolor{teal}{return} res
+\end{minipage}
+\end{center}
+
+
+
+
+
+\subsection{$X_{puissance}$}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Cette partie sera relativement succincte. Les causes de cette concision sont doubles : 
+
+\phantom{aaaa}— Premièrement car tous les calculs ont déjà été traités dans la partie \hyperlink{ref1}{\textcolor{blue}{\textbf{\textit{Modélisation}}}}.
+ 
+\phantom{aaaa}— Deuxièmement car le code qui y est associé est lui même relativement succin.
+
+La complexité est ici en temps constant et nous voyons mal comment optimiser ce code sans passer par un \textit{interfacage c++}.
+\end{minipage}
+\end{center}
+
+
+
+\textbf{Le code dans toute sa beauté fonctionnelle :}
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{run\_loi\_de\_puissance}():
+
+\phantom{aaaa}\textcolor{teal}{return} a\textcolor{mymauve}{*}(1 - rd.\textcolor{teal}{random}())\textcolor{mymauve}{**}(1\textcolor{mymauve}{/}(1-alpha))
+\end{minipage}
+\end{center}
+
+
+
+\subsection{$Z$}
+
+
+
+\subsection{$X$}
+
+
+
+
+\subsection{Vérifications d'usage}
 \section{Les différents modèles}
 \subsection{Complexité algorithmique}
-\subsection{Vérifications d'usage}
+\subsection{Implémentation CuPy}
 
 
 \part{Conclusion}
