@@ -492,7 +492,7 @@ Autant je peux concevoir l'utilité de faire une section optimisée et non optim
 \end{center}
 
 
-\part{Modélisation}
+\part{Aspects théoriques}
 \section{modélisation}
 \subsection{simulation de $X_{norm}$}
 \subsection{Simulation de $X_{puissance}$}
@@ -602,7 +602,7 @@ $F_{X_{puissance}}^{\phantom{aa}-}(y) = sup\bigl\{ x \in [a,+\infty [ \text{ | }
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-L'on cherche a réaliser un modèle simulant des observations journalières de nos états météorologique.
+L'on cherche à réaliser un modèle simulant des observations journalières de nos états météorologique.
 
 Pour ce faire (et de façon assez naturelle, nous établirons une \textit{chaine de Markov} $(H_k)_{k \in \mathbb{N}^{*}}$, possédant les propriétés suivantes :
 
@@ -690,7 +690,7 @@ p_{3,1} & p_{3,2} & p_{3,3}
 
 \phantom{aaaaaaa}
 
-Une première approche a été de partitionner notre intervalle : $[0,1]$, de telle sorte a pouvoir simuler n'importe qu'elle variable aléatoire a support fini, a l'aide d'une loi uniforme.
+Une première approche a été de partitionner notre intervalle : $[0,1]$, de telle sorte à pouvoir simuler n'importe qu'elle variable aléatoire à support fini, à l'aide d'une loi uniforme.
 
 Cette approche a le malheureux inconvénient d'avoir (parmi ses implémentations les moins naïves), une complexité de l'ordre de $o(nln(n))$\footnotemark[1].
 
@@ -700,7 +700,7 @@ Comparativement, une autre approche dite de \textit{« Table de Walker\footnotem
 
 \phantom{aaaaaaa}
 
-« La \textit{méthode optimale} serait-elle fonction des conditions initiales? ». La question ne manque pas pertinence, après tout notre loi a support finie ne possède que 3 états. En ce sens une \textit{« Table de Walker »} est-elle réellement une méthode plus optimale que notre \textit{approche naïve}?
+« La \textit{méthode optimale} serait-elle fonction des conditions initiales? ». La question ne manque pas pertinence, après tout notre loi a support fini ne possède que 3 états. En ce sens une \textit{« Table de Walker »} est-elle réellement une méthode plus optimale que notre \textit{approche naïve}?
 
 \phantom{aaaaaaa}
 
@@ -708,9 +708,9 @@ A cela nous avons deux objections :
 
 \phantom{aaaaaaa}
 
- — Pour $k \in \mathbb{N}$, la simulation d'un trajectoire a $k$ étapes, d'une \textit{chaine de Markov} a $n$ états serait de l'ordre de $o(knln(n))$ avec notre approche naïve et de $o(k)$ avec notre \textit{table de walker\footnotemark[3]}.
+ — Pour $k \in \mathbb{N}$, la simulation d'un trajectoire a $k$ étapes, d'une \textit{chaine de Markov} à $n$ états serait de l'ordre de $o(knln(n))$ avec notre approche naïve et de $o(k)$ avec notre \textit{table de walker\footnotemark[3]}.
  
- — Simuler convenablement des conditions météorologique a l'aide d'une unique \textit{chaine de Markov} a 3 états, nous apparait fort improbable. Il est fort a parier que l'utilisateur sera amené a faire varier le nombre d'états : $n$. En ce sens, notre \textit{« modèle a Table de Walker »}, se montre beaucoup plus robuste que le précédent.
+ — Simuler convenablement des conditions météorologique à l'aide d'une unique \textit{chaine de Markov} a 3 états, nous apparait fort improbable. Il est fort à parier que l'utilisateur sera amené à faire varier le nombre d'états : $n$. En ce sens, notre \textit{« modèle à Table de Walker »}, se montre beaucoup plus robuste que le précédent.
  
 \phantom{aaaaaaa}
 
@@ -757,7 +757,7 @@ Ainsi, nous faisons donc le pari de la \textit{robustesse} et de \textit{l'adapt
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-A chaque états de notre \textit{chaine de Markov} ($(1,2,3)$) est associée une valeur $\lambda_k \in \mathbb{R}_{+}^{*}$ (respectivement $(\lambda_1,\lambda_2,\lambda_3)$.
+À chaque état de notre \textit{chaine de Markov} ($(1,2,3)$) est associé une valeur $\lambda_k \in \mathbb{R}_{+}^{*}$ (respectivement $(\lambda_1,\lambda_2,\lambda_3)$.
 
 Notons $N \in \mathbb{N}$, la taille de notre portefeuille.
 
@@ -800,7 +800,7 @@ Ainsi, nous définissons :
 
 \textit{$(R_t^{(k)})_{k \in [|1,N|]}$}
 
-\phantom{aaaaaaa} — \textit{$(R_t^{(k)})_{k \in [|1,N|]}$, une suite de processus de poisson in-homogène mélange indépendants.}
+\phantom{aaaaaaa} — \textit{$(R_t^{(k)})_{k \in [|1,N|]}$, une suite de processus de poisson in-homogène mélange indépendant.}
 
 \phantom{aaaaaaa} — \textit{$\forall (k,t) \in [|1,N|] \times \mathbb{R}_{+}$,  $R_t^{(k)} \sim P(\mu(t))$, le  processus de poisson in-homogène mélange indépendants représentant les temps d'occurrence des sinistres du contrat $k$.}
 
@@ -982,7 +982,7 @@ Cette partition ($(A_k)_{k \in \mathbb{N}}$), nous permet d'exprimer tout minimu
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-, car par soucis de réalisme l'on considère (par soucis de réalisme) que $c \in \mathbb{R}_{+}^{*}.$
+, car par soucis de réalisme l'on considère que $c \in \mathbb{R}_{+}^{*}.$
 \end{minipage}
 \end{center}
 
@@ -1020,7 +1020,7 @@ Ce résultat nous permet de caractériser l'événement suivant :
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-Il nous suffirait donc de procédé pas a pas.
+Il nous suffirait donc de procédé pas à pas.
 \end{minipage}
 \end{center}
 
@@ -1095,8 +1095,10 @@ Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k}
 
 
 \newpage
+\part{Aspects Programmation}
 \section{Commentaires sur les techniques de programmation}
-\pagecolor{blue!20}
+%\pagecolor{blue!20}
+\pagecolor{black!30}
 
 
 
@@ -1140,20 +1142,20 @@ Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k}
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-$f_{norm}$, est une fonction complexe et au vu de sa forme, il parait fort peu probable de trouver une forme explicite a son intégrale (sur un intervalle quelconque).
+$f_{norm}$, est une fonction complexe et au vue de sa forme, il parait fort peu probable de trouver une forme explicite à son intégrale (sur un intervalle quelconque).
 
 \phantom{aaaaaaa}
 
-Une méthode similaire a celle de \textit{Box-Muller}, a brièvement été évoquer, sans succès.
+Une méthode similaire à celle de \textit{Box-Muller}, a brièvement été évoquée, sans succès.
 
 \phantom{aaaaaaa}
 
 « La méthode du rejet semble donc s'imposer d'elle même ? ». Il s'agit encore d'une question d'arbitrage.
-Faut-il faire le choix de la meilleure des complexité, en approchant la fonction de répartition de  $X_{norm}$, par des formules explicites incorrectes, ou préférer a la complexité une juste représentation de sa loi?
+Faut-il faire le choix de la meilleure des complexités, en approchant la fonction de répartition de  $X_{norm}$, par des formules explicites incorrectes, ou préférer à la complexité une juste représentation de sa loi?
 
 \phantom{aaaaaaa}
 
-Nous avons de prime abord opté pour l'implémentation d'une méthode de rejet dont le support serait une la loi uniforme $U([0,b])$\footnotemark[1].
+Nous avons de prime abord opté pour l'implémentation d'une méthode de rejet dont le support serait la loi uniforme $U([0,b])$\footnotemark[1].
 
 De plus, la majoration suivante, apparait de façon quasi-immédiate : $f_{norm} \leq 2$.
 
@@ -1262,7 +1264,7 @@ De plus, la majoration suivante, apparait de façon quasi-immédiate : $f_{norm}
 Conscients que
 cette méthode n'est sans doute pas la plus efficace au vue de la forme de $f_{norm}$ nous avons donc opté pour une seconde méthode.
 
-La loi $\mathbb{P}_{norm}$ étant très proches d'une loi normale, nous avons pensé à faire une méthode de rejet vis a vis de cette dernière.
+La loi $\mathbb{P}_{norm}$ étant très proche d'une loi normale, nous avons pensé à faire une méthode de rejet vis à vis de cette dernière.
 
 \phantom{aaaa}
 
@@ -1377,7 +1379,7 @@ Cette partie sera relativement succincte. Les causes de cette concision sont dou
 
 \phantom{aaaa}— Premièrement car tous les calculs ont déjà été traités dans la partie \hyperlink{ref1}{\textcolor{blue}{\textbf{\textit{Modélisation}}}}.
  
-\phantom{aaaa}— Deuxièmement car le code qui y est associé est lui même relativement succin.
+\phantom{aaaa}— Deuxièmement car le code qui y est associé est lui même relativement succint.
 
 La complexité est ici en temps constant et nous voyons mal comment optimiser ce code sans passer par un \textit{interfacage c++}.
 \end{minipage}
