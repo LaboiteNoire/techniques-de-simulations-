@@ -479,12 +479,13 @@ Une section que l'on supprimera lors du projet final, mais qui me permet de lais
 
 Autant je peux concevoir l'utilité de faire une section optimisée et non optimisée pour $X_{norm}$, autant (comme tu l'as très justement fait remarquer) je ne pense pas que cela soit pertinent pour $X_{puissance}$.
 
-\textbf{Il faut paralléliser la génération des sinistres du modèle A (compliqué, mais largement faisable)}
-
-
 \textbf{Note a moi même : enlevé les tests en fin de page 5.}
 
+\textbf{Note a moi même : italique sur les commentaires.}
+
 \textbf{Note a moi même : enlevé les \_ de x\_0 dans les codeblock}
+
+\textbf{Tenter la réduction de variance sur le modèle A}
 
 
 
@@ -886,7 +887,7 @@ Nous n'expliqueront pas a quel point cette hypothèse est absurde, néanmoins la
 
 
 \begin{center}
-\includegraphics[width=12cm,height=3.4cm]{img3}
+\includegraphics[width=12cm,height=3.4cm]{img6}
 \end{center}
 
 
@@ -1027,7 +1028,7 @@ Il nous suffirait donc de procédé pas à pas.
 \[ \text{Soit } (V_j)_{j \in \mathbb{N}} \text{, une suite de v.a.i.i.d., tel que } \forall j \in \mathbb{N}, \]
 
 
-\[ V_j \sim \mathbb{B}(\mathbb{P} \left( \exists k \in [|1,n|] \text{ , tel que : } \sum_{i=1}^{k} (\dfrac{NcT_k}{k} - X_i) < -Nu \right) )\]
+\hypertarget{ref2}{\[ V_j \sim \mathbb{B}(\mathbb{P} \left( \exists k \in [|1,n|] \text{ , tel que : } \sum_{i=1}^{k} (\dfrac{NcT_k}{k} - X_i) < -Nu \right) )\]}
 
 
 
@@ -1057,7 +1058,7 @@ Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k}
 
 
 \begin{center}
-\includegraphics[width=12cm,height=3.4cm]{img4}
+\includegraphics[width=12cm,height=3.4cm]{img7}
 \end{center}
 
 
@@ -1398,15 +1399,37 @@ La complexité est ici en temps constant et nous voyons mal comment optimiser ce
 \end{minipage}
 \begin{minipage}[r]{0.88\textwidth}
 
-\textcolor{teal}{def} \textcolor{blue}{run\_loi\_de\_puissance}():
+\textcolor{teal}{def} \textcolor{blue}{run\_loi\_de\_puissance}(a : \textcolor{codegreen}{float}, alpha : \textcolor{codegreen}{float}):
 
-\phantom{aaaa}\textcolor{teal}{return} a\textcolor{mymauve}{*}(1 - rd.\textcolor{teal}{random}())\textcolor{mymauve}{**}(1\textcolor{mymauve}{/}(1-alpha))
+\phantom{aaaa}\textcolor{teal}{return} a\textcolor{mymauve}{*}(\textcolor{codegreen}{1} \textcolor{mymauve}{-} rd.\textcolor{teal}{random}())\textcolor{mymauve}{**}(\textcolor{codegreen}{1}\textcolor{mymauve}{/}(\textcolor{codegreen}{1}\textcolor{mymauve}{-}alpha))
 \end{minipage}
 \end{center}
 
 
 
 \subsection{$Z$}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+$Z$ suit une loi de probabilité qui nous est inconnue, il n'existe donc aucune \textit{implémentation optimale} de cette dernière (que ce soit en terme de code et ou de complexité).
+
+Il parait assez évident, qu'une approche par \textit{« inversion de la fonction de répartition »}, serait complètement hors propos.
+
+A terme, nous avons finalement opter pour une méthode de rejet (bien que la \textit{« table de walker »} nous ait un instant effleurer l'esprit).
+
+\phantom{aa}
+
+Par la suite nous restructurons notre code pour le rendre moins sensible a la casse.
+
+\phantom{aa}
+
+La programmation orientée objet nous offre un paradigme bien plus adaptable et robuste au changement de paramètres.
+
+Elle structure notre code et lui offre une architecture bien plus \textit{arborescente}.
+\end{minipage}
+\end{center}
 
 
 
@@ -1414,11 +1437,425 @@ La complexité est ici en temps constant et nous voyons mal comment optimiser ce
 
 
 
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\textcolor{black!60}{10}
+
+\textcolor{black!60}{11}
+
+\textcolor{black!60}{12}
+
+\textcolor{black!60}{13}
+
+\textcolor{black!60}{14}
+
+\textcolor{black!60}{15}
+
+\textcolor{black!60}{16}
+
+\phantom{aa}
+
+\textcolor{black!60}{17}
+
+\textcolor{black!60}{18}
+
+\textcolor{black!60}{19}
+
+\textcolor{black!60}{20}
+
+\textcolor{black!60}{21}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{22}
+
+\textcolor{black!60}{23}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{class} \textcolor{blue}{Settings}():
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{\_\_init\_\_}(self, x\_0\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0},\textcolor{codegreen}{1}), b\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0.1},\textcolor{codegreen}{1}), sigma\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0.1},\textcolor{codegreen}{1}), delta\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0.1},\textcolor{codegreen}{1}), a\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0.1},\textcolor{codegreen}{1}), alpha\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{1},\textcolor{codegreen}{10}), u\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{100},\textcolor{codegreen}{200}), c\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0.1},\textcolor{codegreen}{1}), N\textcolor{mymauve}{=}rd.\textcolor{blue}{randint}(\textcolor{codegreen}{1},\textcolor{codegreen}{10000}), monte\_carlo\_limit\textcolor{mymauve}{=}\textcolor{codegreen}{10000}, lambda\_01\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0.1},\textcolor{codegreen}{1}), lambda\_02\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0.1},\textcolor{codegreen}{1}), lambda\_03\textcolor{mymauve}{=}np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0.1},\textcolor{codegreen}{1})):
+
+\phantom{aaaaaaaa}\textcolor{red}{"""}
+
+\phantom{aaaaaaaa}\textcolor{red}{Contient toutes les variables initiales de nos modeles}
+
+\phantom{aaaaaaaa}\textcolor{red}{"""}
+
+\phantom{aaaaaaaa}self.\textcolor{blue}{colors} \textcolor{mymauve}{=} {\textcolor{red}{"bg"} : \textcolor{codegreen}{0}}
+
+\phantom{aaaaaaaa}self.\textcolor{blue}{parameters} = \{ \textcolor{red}{"x 0"} : x\_0,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"b"} : b,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"sigma"} : sigma,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"delta"} : delta,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"a"} : a,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"alpha"} : alpha,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"u"} : u,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"c"} : c,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"N"} : N,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"limite machine de monte carlo limit"} : monte\_carlo\_limit,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"lambda 01"} : lambda\_01,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"lambda 02"} : lambda\_02,
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"lambda 03"} : lambda\_03 \}
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{\_\_repr\_\_}(self):
+
+\phantom{aaaaaaaa}\textcolor{teal}{return} \textcolor{red}{"Parametres du modèle : "} \textcolor{mymauve}{+} \textcolor{red}{"$\backslash$n"} \textcolor{mymauve}{+} \textcolor{red}{"$\backslash$n"}.\textcolor{blue}{join}([\textcolor{red}{" - "} \textcolor{mymauve}{+} \textcolor{codegreen}{str}(elt) \textcolor{mymauve}{+} \textcolor{red}{" : "} \textcolor{mymauve}{+} \textcolor{codegreen}{str}(self.\textcolor{blue}{parameters}[elt]) \textcolor{codegreen}{for} elt \textcolor{codegreen}{in} self.\textcolor{blue}{parameters}.\textcolor{blue}{keys}()])
+        
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{\_\_str\_\_}(self):
+
+\phantom{aaaaaaaa}\textcolor{teal}{return} \textcolor{red}{"Parametres du modèle : "} \textcolor{mymauve}{+} \textcolor{red}{"$\backslash$n"} \textcolor{mymauve}{+} \textcolor{red}{"$\backslash$n"}.\textcolor{blue}{join}([\textcolor{red}{" - "} \textcolor{mymauve}{+} \textcolor{codegreen}{str}(elt) \textcolor{mymauve}{+} \textcolor{red}{" : "} \textcolor{mymauve}{+} \textcolor{codegreen}{str}(self.\textcolor{blue}{parameters}[elt]) \textcolor{codegreen}{for} elt \textcolor{codegreen}{in} self.\textcolor{blue}{parameters}.\textcolor{blue}{keys}()])
+\end{minipage}
+\end{center}
+
+
+\phantom{aaaa}
+
+
+\phantom{aaaa}
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+\begin{center}
+Bien que le choix de stocker nos paramètres ait brièvement été aborder, les nombreuses ouvertures et fermetures de fichiers successives auraient un impact néfaste et difficilement quantifiable sur la qualité de notre code.
+\end{center}
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\phantom{aa}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\phantom{aa}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{9}
+
+\textcolor{black!60}{10}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{11}
+
+\textcolor{black!60}{12}
+
+\textcolor{black!60}{13}
+
+\phantom{aa}
+
+\textcolor{black!60}{14}
+
+\phantom{aa}
+
+\textcolor{black!60}{15}
+
+\textcolor{black!60}{16}
+
+\textcolor{black!60}{17}
+
+\textcolor{black!60}{18}
+
+\phantom{aa}
+
+\textcolor{black!60}{19}
+
+\textcolor{black!60}{20}
+
+\textcolor{black!60}{21}
+
+\textcolor{black!60}{22}
+
+\textcolor{black!60}{23}
+
+\textcolor{black!60}{24}
+
+\textcolor{black!60}{25}
+
+\textcolor{black!60}{26}
+
+\textcolor{black!60}{27}
+
+\textcolor{black!60}{28}
+
+\textcolor{black!60}{29}
+
+\phantom{aa}
+
+\textcolor{black!60}{30}
+
+\textcolor{black!60}{31}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{32}
+
+\textcolor{black!60}{33}
+
+\phantom{aa}
+
+\textcolor{black!60}{34}
+
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{class} \textcolor{blue}{Sinistre}():
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{\_\_init\_\_}(self, settings\textcolor{mymauve}{=}ProjectSettings, p\textcolor{mymauve}{=}get\_a\_random\_distribution(n\textcolor{mymauve}{=}\textcolor{codegreen}{10})):
+
+\phantom{aaaaaaaa}self.\textcolor{blue}{settings} \textcolor{mymauve}{=} settings
+
+\phantom{aaaaaaaa}self.\textcolor{blue}{p} \textcolor{mymauve}{=} p
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{f\_norm}(self, x : \textcolor{codegreen}{float}):
+
+\phantom{aaaaaaaa}\textcolor{red}{"""f\_norm est la loi selon  laquelle on doit simuler pour obtenir Pnorm"""}
+
+\phantom{aaaaaaaa}ind \textcolor{mymauve}{=} (x \textcolor{mymauve}{>=} \textcolor{codegreen}{0}) \& (x \textcolor{mymauve}{<=} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"b"}])
+
+\phantom{aaaaaaaa}\textcolor{teal}{return} ind\textcolor{mymauve}{*}(np.\textcolor{blue}{exp}(\textcolor{mymauve}{-}((x \textcolor{mymauve}{-} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"x 0"}])\textcolor{mymauve}{**}\textcolor{codegreen}{2}) \textcolor{mymauve}{/} (\textcolor{codegreen}{2} \textcolor{mymauve}{*} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}]\textcolor{mymauve}{**}\textcolor{codegreen}{2})) \textcolor{mymauve}{*} (\textcolor{codegreen}{1}\textcolor{mymauve}{+} np.\textcolor{blue}{cos}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{blue}{pi}\textcolor{mymauve}{*}(x \textcolor{mymauve}{-} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"x 0"}])\textcolor{mymauve}{/}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"delta"}])\textcolor{mymauve}{**}\textcolor{codegreen}{2}))
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{g}(self, x : \textcolor{codegreen}{float}):
+
+\phantom{aaaaaaaa}\textcolor{teal}{return} (\textcolor{codegreen}{1} \textcolor{mymauve}{/} (np.\textcolor{blue}{sqrt}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{blue}{pi})\textcolor{mymauve}{*}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}])) \textcolor{mymauve}{*} np.\textcolor{blue}{exp}(\textcolor{mymauve}{-}((x \textcolor{mymauve}{-} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"x 0"}])\textcolor{mymauve}{**}\textcolor{codegreen}{2}) \textcolor{mymauve}{/} (\textcolor{codegreen}{2} \textcolor{mymauve}{*} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}]\textcolor{mymauve}{**}\textcolor{codegreen}{2}))
+
+\phantom{aaaa}\textcolor{teal}{def} f\_norm\_run(self):
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{while} \textcolor{orange!80}{True}:
+
+\phantom{aaaaaaaaaaaa}X = np.\textcolor{blue}{random.normal}(self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"x 0"}], self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}])   
+            
+\phantom{aaaaaaaaaaaa}Y = np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0}, \textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{blue}{sqrt}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{blue}{pi})\textcolor{mymauve}{*}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}])
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{if} Y\textcolor{mymauve}{*}self.\textcolor{blue}{g}(x\textcolor{mymauve}{=}X) \textcolor{mymauve}{<=} self.\textcolor{blue}{f\_norm}(x\textcolor{mymauve}{=}X):
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{teal}{return} X \textcolor{mymauve}{\#condition \textit{d'acceptation, boucle brisée}}
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{loi\_de\_puissance\_run}(self):
+
+\phantom{aaaaaaaa}\textcolor{teal}{return} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"a"}]\textcolor{mymauve}{*}(\textcolor{codegreen}{1} \textcolor{mymauve}{-} rd.\textcolor{blue}{random}())\textcolor{mymauve}{**}(\textcolor{codegreen}{1}\textcolor{mymauve}{/}(\textcolor{codegreen}{1}\textcolor{mymauve}{-}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"alpha"}]))
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{loi\_z\_run}(self):
+
+\phantom{aaaaaaaa}M \textcolor{mymauve}{=} np.\textcolor{blue}{max}(self.\textcolor{blue}{p})
+
+\phantom{aaaaaaaa}k \textcolor{mymauve}{=} \textcolor{codegreen}{len}(self.\textcolor{blue}{p})
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{while} \textcolor{orange!80}{True}:
+
+\phantom{aaaaaaaaaaaa}I \textcolor{mymauve}{=} np.\textcolor{blue}{random.randint}(\textcolor{codegreen}{0}, k) 
+
+\phantom{aaaaaaaaaaaa}U \textcolor{mymauve}{=} np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0}, M)
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{if} U \textcolor{mymauve}{<=} self.\textcolor{blue}{p}[I]:
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{teal}{return} I \textcolor{mymauve}{\# \textit{condition d'acceptation}}
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{loi\_X\_run}(self):
+
+\phantom{aaaaaaaa}z \textcolor{mymauve}{=} self.\textcolor{blue}{loi\_z\_run}()
+
+\phantom{aaaaaaaaaaaa}return (z \textcolor{mymauve}{==} \textcolor{codegreen}{0})\textcolor{mymauve}{*}self.\textcolor{blue}{f\_norm\_run}() + (z \textcolor{mymauve}{==} \textcolor{codegreen}{1})\textcolor{mymauve}{*}self.\textcolor{blue}{loi\_de\_puissance\_run}() + (z \textcolor{mymauve}{>} \textcolor{codegreen}{1})\textcolor{mymauve}{*}z
+
+\phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{empiricLikelihood}(self, n\textcolor{mymauve}{=}\textcolor{codegreen}{4000}):
+
+\phantom{aaaaaaaa}hist\_data \textcolor{mymauve}{=} [[self.\textcolor{blue}{f\_norm\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.loi\_de\_puissance\_run() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.\textcolor{blue}{loi\_z\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.\textcolor{blue}{loi\_X\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)]]
+
+\phantom{aaaaaaaa}group\_labels \textcolor{mymauve}{=} [\textcolor{red}{"X\_norm"}, \textcolor{red}{"X\_puissance"},\textcolor{red}{"Z"},\textcolor{red}{"X"}]
+
+\phantom{aaaaaaaa}fig \textcolor{mymauve}{=} ff.\textcolor{blue}{create\_distplot}(hist\_data, group\_labels, show\_hist=\textcolor{orange!80}{False})
+
+\phantom{aaaaaaaa}fig.\textcolor{blue}{show}()
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Vérifications d'usage}
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Nos \textit{densités empiriques}, sont visiblement conformes (ou du moins vraisemblables) aux densités $f_{norm}$, $f_{puissance}$ et $f_{Z}$ (ou $\mathbb{P}_{Z}$ conditionnellement a la nature de $Z$).
+\end{minipage}
+\end{center}
+
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img5}
+\end{center}
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Qui plus est, nous tenons (dans un soucis de concision) a notifier que les vérifications d'usage pour nos \textit{« tables de walker »} et autres \textit{chaines de markov} (dont les codes ne seront pas détaillés ci-dessous au vu de leurs complexités) sont libre access sur le \href{https://github.com/LaboiteNoire/techniques-de-simulations-}{\textcolor{blue}{\textbf{\textit{notebook}}}}.
+
+\end{minipage}
+\end{center}
+
+
 \section{Les différents modèles}
+\subsection{Modèle A}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Cette partie bénéficiera grandement des formules exposés en \hyperlink{ref2}{\textcolor{blue}{\textbf{\textit{$3^e$ partie}}}}, sur notre capacité a procéder étapes par étapes, afin d'optimiser notre code.
+
+En premier lieux, nous générons nos possibles dates d'occurrences par une \textit{simili} méthode de rejet, puis nous générons la trajectoire de la \textit{chaine de markov} portant en elle l'information nécessaire a la bonne formation de nos critères de rejet.
+
+Il n'est ainsi pas nécessaire de générer toute la trajectoire de la météo journalière, si l'information que celle-ci nous apporte ne nous est pas indispensable.
+\end{minipage}
+\end{center}
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+    def run\_ruine(self, rounds=365, draw=True):
+        N\_sim = np.random.poisson(lam=self.theta*rounds)
+        \# Nous essayer d'optimiser le code de facon a que l'on ait besoin de simmuler toute la trajectoire de la chaine de markov, si et seulement si l'information qu'elle apport nous ait nécéssaire.
+        for k in range(N\_sim):
+            va\_transitoire = np.random.uniform(0,rounds)
+            va\_transitoire\_aux = int(va\_transitoire)
+            if (va\_transitoire\_aux in self.trajectory): \# recherche en temps constant
+                if (np.random.uniform(0,self.theta) <= self.settings.parameters["N"]*self.trajectory[va\_transitoire\_aux]):
+                    bisect.insort(self.T,va\_transitoire) \# o(lnn)
+            else:
+                for i in range(va\_transitoire\_aux - self.round + 2): \# Nombre de tours qu'il nous reste pour que va\_transitioire\_aux soit dans le dictionnaire
+                    self.state, self.round, self.trajectory[self.round] = self.transitions\_walker\_table[self.indexa[self.state]].run(), self.round + 1, self.state
+                if (np.random.uniform(0,self.theta) <= self.settings.parameters["N"]*self.trajectory[va\_transitoire\_aux]):
+                    bisect.insort(self.T,va\_transitoire) \# o(lnn)
+        if draw:
+            X = [self.sinister.loi\_X\_run() for k in range(len(self.T))]
+            X[0] = 0
+            drawP(T=self.T, X=X)
+            drawRt(T=self.T, X=X, N=self.settings.parameters["N"], u=self.settings.parameters["u"], c=self.settings.parameters["c"])
+\end{minipage}
+\end{center}
+
+
+
+
+
+\subsection{Modèle B}
 \subsection{Complexité algorithmique}
-\subsection{Implémentation CuPy}
 
 
 \part{Conclusion}

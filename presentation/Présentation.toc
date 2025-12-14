@@ -20,13 +20,14 @@
 \contentsline {subsection}{\numberline {3.2}$X_{norm}$}{14}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}$X_{puissance}$}{16}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}$Z$}{16}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}$X$}{16}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Vérifications d'usage}{16}{subsection.3.6}%
-\contentsline {section}{\numberline {4}Les différents modèles}{16}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Complexité algorithmique}{16}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Implémentation CuPy}{16}{subsection.4.2}%
-\contentsline {part}{IV\hspace {1em}Conclusion}{16}{part.4}%
-\contentsline {section}{\numberline {5}Commentaires sur la pertinence du modèle}{16}{section.5}%
-\contentsline {section}{\numberline {6}Évolutions possibles du modèle}{16}{section.6}%
-\contentsline {section}{\numberline {7}Commentaires}{17}{section.7}%
-\contentsline {section}{\numberline {8}Annexes et contacts}{17}{section.8}%
+\contentsline {subsection}{\numberline {3.5}$X$}{17}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Vérifications d'usage}{19}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Les différents modèles}{19}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Modèle A}{19}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Modèle B}{20}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Complexité algorithmique}{20}{subsection.4.3}%
+\contentsline {part}{IV\hspace {1em}Conclusion}{20}{part.4}%
+\contentsline {section}{\numberline {5}Commentaires sur la pertinence du modèle}{20}{section.5}%
+\contentsline {section}{\numberline {6}Évolutions possibles du modèle}{20}{section.6}%
+\contentsline {section}{\numberline {7}Commentaires}{20}{section.7}%
+\contentsline {section}{\numberline {8}Annexes et contacts}{20}{section.8}%

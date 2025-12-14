@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.15)  7 DEC 2025 11:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.15)  14 DEC 2025 01:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1077,12 +1077,12 @@ LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
 (C:\Users\G603\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-<img1.png, id=130, 951.555pt x 475.7775pt>
+<img1.png, id=134, 951.555pt x 475.7775pt>
 File: img1.png Graphic file (type png)
 <use img1.png>
 Package pdftex.def Info: img1.png  used on input line 129.
 (pdftex.def)             Requested size: 113.80415pt x 56.90207pt.
-<img2.png, id=133, 677.53125pt x 677.53125pt>
+<img2.png, id=137, 677.53125pt x 677.53125pt>
 File: img2.png Graphic file (type png)
 <use img2.png>
 Package pdftex.def Info: img2.png  used on input line 131.
@@ -1181,18 +1181,6 @@ Overfull \hbox (10.58112pt too wide) in paragraph at lines 386--387
 [5]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 497.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 497.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 497.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 498.
 
 
@@ -1203,134 +1191,360 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 498.
 
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 499.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 499.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 499.
+
 [6]
-Underfull \hbox (badness 1490) in paragraph at lines 508--509
+Underfull \hbox (badness 1490) in paragraph at lines 509--510
 []$\OML/cmm/m/it/10 X[]$ \T1/cmr/m/n/10 est une va-riable aléa-toire conti-nue,
  de den-sité
  []
 
 [7]
-Overfull \hbox (19.99326pt too wide) in paragraph at lines 598--598
+Overfull \hbox (19.99326pt too wide) in paragraph at lines 599--599
 []\T1/cmr/bx/n/12 Conditions mé-téo-ro-lo-giques et chaines de Mar-kov $\OT1/cm
 r/m/n/12 (\OML/cmm/m/it/12 H[]\OT1/cmr/m/n/12 )[]$ 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 598.
+(hyperref)                removing `math shift' on input line 599.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 598.
+(hyperref)                removing `subscript' on input line 599.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 598.
+(hyperref)                removing `subscript' on input line 599.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\in' on input line 598.
+(hyperref)                removing `\in' on input line 599.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 598.
+(hyperref)                removing `superscript' on input line 599.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 598.
+(hyperref)                removing `math shift' on input line 599.
 
 LaTeX Font Info:    Trying to load font information for T1+cmss on input line 6
-58.
+59.
 (C:\Users\G603\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmss.fd
 File: t1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-Overfull \hbox (31.4976pt too wide) in paragraph at lines 673--674
+Overfull \hbox (31.4976pt too wide) in paragraph at lines 674--675
 [][] 
  []
 
 [8] [9]
-Overfull \hbox (56.01488pt too wide) in paragraph at lines 801--802
+Overfull \hbox (56.01488pt too wide) in paragraph at lines 802--803
 []$\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 )[]$ 
  []
 
 
-Overfull \hbox (11.5598pt too wide) in paragraph at lines 803--804
+Overfull \hbox (11.5598pt too wide) in paragraph at lines 804--805
 [][] \T1/cmr/m/n/10 ^^V $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 )
 []$\T1/cmr/m/it/10 , une suite de pro-ces-sus de pois-son in-homogène
  []
 
 [10]
-<img3.png, id=259, 1607.00375pt x 361.35pt>
-File: img3.png Graphic file (type png)
-<use img3.png>
-Package pdftex.def Info: img3.png  used on input line 889.
-(pdftex.def)             Requested size: 341.4286pt x 96.73874pt.
- [11 <./img3.png>] [12]
-<img4.png, id=269, 1607.00375pt x 361.35pt>
-File: img4.png Graphic file (type png)
-<use img4.png>
-Package pdftex.def Info: img4.png  used on input line 1060.
-(pdftex.def)             Requested size: 341.4286pt x 96.73874pt.
- [13 <./img4.png>]
+<img6.png, id=264, 1205.2528pt x 271.0125pt>
+File: img6.png Graphic file (type png)
+<use img6.png>
+Package pdftex.def Info: img6.png  used on input line 890.
+(pdftex.def)             Requested size: 341.44087pt x 96.73735pt.
+ [11 <./img6.png>] [12]
+<img7.png, id=274, 1205.2528pt x 271.0125pt>
+File: img7.png Graphic file (type png)
+<use img7.png>
+Package pdftex.def Info: img7.png  used on input line 1061.
+(pdftex.def)             Requested size: 341.44087pt x 96.73735pt.
+ [13 <./img7.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1139.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 1139.
+(hyperref)                removing `math shift' on input line 1140.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1139.
+(hyperref)                removing `subscript' on input line 1140.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1140.
 
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 1170.
+put line 1171.
 [14] [15]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1372.
+(hyperref)                removing `math shift' on input line 1373.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 1372.
+(hyperref)                removing `subscript' on input line 1373.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1372.
+(hyperref)                removing `math shift' on input line 1373.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1409.
+(hyperref)                removing `math shift' on input line 1410.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1409.
+(hyperref)                removing `math shift' on input line 1410.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1413.
+(hyperref)                removing `math shift' on input line 1436.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1413.
+(hyperref)                removing `math shift' on input line 1436.
 
-[16] [17] (PrÃ©sentation.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 1515--1516
+[][][]\T1/cmr/m/n/10 def[] []__init__[](self, x_0[]=[]np.[]random.uniform[]([]0
+[],[]1[]),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1515--1516
+\T1/cmr/m/n/10 b[]=[]np.[]random.uniform[]([]0.1[],[]1[]), sigma[]=[]np.[]rando
+m.uniform[]([]0.1[],[]1[]),
+ []
+
+
+Underfull \hbox (badness 5908) in paragraph at lines 1515--1516
+\T1/cmr/m/n/10 delta[]=[]np.[]random.uniform[]([]0.1[],[]1[]), a[]=[]np.[]rando
+m.uniform[]([]0.1[],[]1[]), al-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1515--1516
+\T1/cmr/m/n/10 pha[]=[]np.[]random.uniform[]([]1[],[]10[]), u[]=[]np.[]random.u
+niform[]([]100[],[]200[]),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1515--1516
+\T1/cmr/m/n/10 c[]=[]np.[]random.uniform[]([]0.1[],[]1[]), N[]=[]rd.[]randint[]
+([]1[],[]10000[]),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1515--1516
+\T1/cmr/m/n/10 monte_carlo_limit[]=[][]10000[], lambda_01[]=[]np.[]random.unifo
+rm[]([]0.1[],[]1[]),
+ []
+
+
+Overfull \hbox (50.86842pt too wide) in paragraph at lines 1515--1516
+\T1/cmr/m/n/10 lambda_02[]=[]np.[]random.uniform[]([]0.1[],[]1[]), lambda_03[]=
+[]np.[]random.uniform[]([]0.1[],[]1[])) : 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1543--1544
+[][][]\T1/cmr/m/n/10 "limite ma-chine de monte carlo li-mit"[] :
+ []
+
+
+Underfull \hbox (badness 2134) in paragraph at lines 1553--1554
+\T1/cmr/m/n/10 - "[] []+[] []str[](elt) []+[] []" : "[] []+[] []str[](self.[]pa
+rameters[][elt]) []for[] elt []in[]
+ []
+
+
+Underfull \hbox (badness 2134) in paragraph at lines 1557--1558
+\T1/cmr/m/n/10 - "[] []+[] []str[](elt) []+[] []" : "[] []+[] []str[](self.[]pa
+rameters[][elt]) []for[] elt []in[]
+ []
+
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 1690--1691
+[][][]\T1/cmr/m/n/10 def[] []__init__[](self, set-tings[]=[]ProjectSettings,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1702--1703
+[][][]\T1/cmr/m/n/10 return[] ind[]*[](np.[]exp[]([]-[]((x []-[] self.[]setting
+s.parameters[][[]"x
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1702--1703
+\T1/cmr/m/n/10 0"[]])[]**[][]2[]) []/[] ([]2[] []*[] self.[]settings.parameters
+[][[]"sigma"[]][]**[][]2[]))
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1702--1703
+[]\T1/cmr/m/n/10 *[] ([]1[][]+[] np.[]cos[]([]2[][]*[]np.[]pi[][]*[](x []-[] se
+lf.[]settings.parameters[][[]"x
+ []
+
+
+Overfull \hbox (14.0152pt too wide) in paragraph at lines 1706--1707
+[][][]\T1/cmr/m/n/10 return[] ([]1[] []/[] (np.[]sqrt[]([]2[][]*[]np.[]pi[])[]*
+[]self.[]settings.parameters[][[]"sigma"[]]))
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1706--1707
+[]\T1/cmr/m/n/10 *[] np.[]exp[]([]-[]((x []-[] self.[]settings.parameters[][[]"
+x 0"[]])[]**[][]2[]) []/[] ([]2[] []*[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1714--1715
+[][]\T1/cmr/m/n/10 Y = np.[]random.uniform[]([]0[],
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1722--1723
+[][][]\T1/cmr/m/n/10 return[] self.[]settings.parameters[][[]"a"[]][]*[]([]1[] 
+[]-[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1744--1745
+[][]\T1/cmr/m/n/10 return (z []==[] []0[])[]*[]self.[]f_norm_run[]() + (z []==[
+]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1748--1749
+[][]\T1/cmr/m/n/10 hist_data []=[] [[self.[]f_norm_run[]() []for[] i
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1748--1749
+[]\T1/cmr/m/n/10 in[] []range[](n)],[self.loi_de_puissance_run() []for[] i []in
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1748--1749
+[]\T1/cmr/m/n/10 range[](n)],[self.[]loi_z_run[]() []for[] i []in[] []range[](n
+)],[self.[]loi_X_run[]()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1752--1753
+[][]\T1/cmr/m/n/10 fig []=[] ff.[]create_distplot[](hist_data, group_labels,
+ []
+
+[17] [18]
+<img5.png, id=304, 1205.2528pt x 271.0125pt>
+File: img5.png Graphic file (type png)
+<use img5.png>
+Package pdftex.def Info: img5.png  used on input line 1790.
+(pdftex.def)             Requested size: 341.44087pt x 96.73735pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+[]\T1/cmr/m/n/10 def run_ruine(self, rounds=365, draw=True) : N_sim =
+ []
+
+
+Underfull \hbox (badness 2426) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 np.random.poisson(lam=self.theta*rounds) # Nous es-sayer d'op-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 self.settings.parameters["N"]*self.trajectory[va_transitoire_aux
+]) :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 bi-sect.insort(self.T,va_transitoire) # o(lnn) else : for i in
+ []
+
+
+Underfull \hbox (badness 3780) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 range(va_transitoire_aux - self.round + 2) : # Nombre de
+ []
+
+
+Underfull \hbox (badness 1742) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 tours qu'il nous reste pour que va_transitioire_aux soit dans
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 le dic-tion-naire self.state, self.round, self.trajectory[self.r
+ound]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 = self.transitions_walker_table[self.indexa[self.state]].run(),
+ []
+
+
+Underfull \hbox (badness 1142) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 self.round + 1, self.state if (np.random.uniform(0,self.theta) <
+=
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 self.settings.parameters["N"]*self.trajectory[va_transitoire_aux
+]) :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 bi-sect.insort(self.T,va_transitoire) # o(lnn) if draw : X
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 = [self.sinister.loi_X_run() for k in range(len(self.T))]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 X[0] = 0 drawP(T=self.T, X=X) dra-wRt(T=self.T, X=X,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1831--1850
+\T1/cmr/m/n/10 N=self.settings.parameters["N"], u=self.settings.parameters["u"]
+,
+ []
+
+[19 <./img5.png>] [20] (PrÃ©sentation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `PrÃ©sentation.out' has not changed.
-(rerunfilecheck)             Checksum: 9E0A8C658F8C37F435E6148877B21C65;5302.
+(rerunfilecheck)             Checksum: 5A303CB11D16538E1847A11C3DBD13FC;5351.
  ) 
 Here is how much of TeX's memory you used:
- 40028 strings out of 474486
- 955905 string characters out of 5744227
+ 40046 strings out of 474486
+ 956128 string characters out of 5744227
  1955542 words of memory out of 5000000
- 61615 multiletter control sequences out of 15000+600000
+ 61628 multiletter control sequences out of 15000+600000
  587648 words of font info for 104 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,15n,94p,730b,1124s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,15n,94p,1577b,1124s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\G603\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx1
 440.pk> <C:\Users\G603\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
 ecbi0800.pk> <C:\Users\G603\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dp
@@ -1373,9 +1587,9 @@ Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/G603/AppData
 03/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 ><C:/Users/G603/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbo
 ls/msbm7.pfb>
-Output written on PrÃ©sentation.pdf (17 pages, 555210 bytes).
+Output written on PrÃ©sentation.pdf (20 pages, 589291 bytes).
 PDF statistics:
- 982 PDF objects out of 1000 (max. 8388607)
- 54 named destinations out of 1000 (max. 500000)
- 281 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1013 PDF objects out of 1200 (max. 8388607)
+ 59 named destinations out of 1000 (max. 500000)
+ 294 words of extra memory for PDF output out of 10000 (max. 10000000)
 
