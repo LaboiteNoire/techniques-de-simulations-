@@ -13,6 +13,7 @@
 \usepackage[french]{babel}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{caption}
 
 \usepackage{listings}
 \usepackage{xcolor}
@@ -1797,14 +1798,186 @@ Nos \textit{densités empiriques}, sont visiblement conformes (ou du moins vrais
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-Qui plus est, nous tenons (dans un soucis de concision) a notifier que les vérifications d'usage pour nos \textit{« tables de walker »} et autres \textit{chaines de markov} (dont les codes ne seront pas détaillés ci-dessous au vu de leurs complexités) sont libre access sur le \href{https://github.com/LaboiteNoire/techniques-de-simulations-}{\textcolor{blue}{\textbf{\textit{notebook}}}}.
+Qui plus est, nous tenons (dans un soucis de concision) a notifier que les vérifications d'usage pour nos \textit{« tables de walker »} et autres \textit{chaines de markov} (dont les codes ne seront pas détaillés ci-dessous au vu de leurs complexités) sont libre access sur les \href{https://github.com/LaboiteNoire/techniques-de-simulations-}{\textcolor{blue}{\textbf{\textit{notebook}}}}.
 
 \end{minipage}
 \end{center}
 
 
+
+\begin{center}
+\begin{tikzpicture}[scale=0.50]
+\begin{axis}[ybar interval, ymax=1 ,ymin=0, xmax=7 ,xmin=1, minor y tick num = 4]
+\addplot coordinates { (1, 0.1) (2, 0.3) (3, 0.2) (4, 0.1) (5, 0.2) (6, 0.1)  (55, 0.2)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img9}
+\end{center}
+
+
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img10}
+\end{center}
+
+
+
+
+
+
+\newpage
 \section{Les différents modèles}
 \subsection{Modèle A}
+\textbf{Première approche :}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+De prime abord, nous avons envisager de simuler étape par étapes notre sinistralité journalière, partant du postulat que l'agglomération de ces dernières formerait a terme notre sinistralité annuelle.  
+
+En cette idée réside le cœur de notre implémentation première. 
+\end{minipage}
+\end{center}
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{simuler\_processus\_poisson}(lambd, horizon=\textcolor{codegreen}{1.0}):
+
+\phantom{aaaa}T \textcolor{mymauve}{=} []
+
+\phantom{aaaa}tn \textcolor{mymauve}{=} \textcolor{codegreen}{0}
+
+\phantom{aaaa}\textcolor{codegreen}{while} \textcolor{orange!80}{True}:
+
+\phantom{aaaaaaaa}tn \textcolor{mymauve}{+=} np.\textcolor{blue}{random.exponential}(\textcolor{codegreen}{1}\textcolor{mymauve}{/}lambd)
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{if} tn \textcolor{mymauve}{>} horizon:
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{break};
+
+\phantom{aaaaaaaa}T.\textcolor{blue}{append}(tn)
+
+\phantom{aaaa}\textcolor{teal}{return} np.\textcolor{blue}{array}(T)
+\end{minipage}
+\end{center}
+
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+\phantom{aa}
+
+La \textbf{\textit{fonction}} \textcolor{blue}{simuler\_sinistres\_avec\_temps} renvoie une liste de tuples : ($T_i$ : temps occurrence, $X_i$ : montant sinistre associé).
+
+\phantom{aa}
+
+La \textbf{\textit{fonction}} \textcolor{blue}{simuler\_processus\_poisson}, simule un processus de Poisson homogène sur $[0, horizon]$, puis renvoie la liste des temps d'occurrences $T_n$.
+
+\phantom{aa}
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\phantom{aa}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\textcolor{black!60}{7}
+
+\phantom{aa}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\textcolor{black!60}{10}
+
+\textcolor{black!60}{11}
+
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{simuler\_sinistres\_avec\_temps}(H, lambd, p, x0, b, sigma, delta, a, alpha):
+
+\phantom{aaaa}liste\_T\_X \textcolor{mymauve}{=} []  \textcolor{mymauve}{\# \textit{liste des couples (temps, montant)}}
+
+\phantom{aaaa}\textcolor{codegreen}{for} jour \textcolor{codegreen}{in} \textcolor{codegreen}{range}(\textcolor{codegreen}{len}(H)):
+
+\phantom{aaaaaaaa}etat \textcolor{mymauve}{=} H[jour] \textcolor{mymauve}{\# \textit{on récupère la météo du jour}}
+
+\phantom{aaaaaaaa}lambda\_j \textcolor{mymauve}{=} lambd[etat \textcolor{mymauve}{-} \textcolor{codegreen}{1}] \textcolor{mymauve}{\# \textit{lambda associé à cette météo}}
+
+\phantom{aaaaaaaa}temps \textcolor{mymauve}{=} simuler\_processus\_poisson(lambda\_j)
+
+\phantom{aaaaaaaa}montants \textcolor{mymauve}{=} echantillon\_X\_rejet(p, x0, b, sigma, delta, a, alpha, \textcolor{codegreen}{len}(temps)) \textcolor{mymauve}{\# \textit{Simuler un montant pour chaque temps}}
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(\textcolor{codegreen}{len}(temps)):
+
+\phantom{aaaaaaaaaaaa}t\textcolor{mymauve}{=}temps[i]
+
+\phantom{aaaaaaaaaaaa}liste\_T\_X.\textcolor{blue}{append}((jour \textcolor{mymauve}{+} t, montants[i]))
+
+\phantom{aaaa}\textcolor{teal}{return} liste\_T\_X
+
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+\newpage
+\textbf{Seconde approche :}
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
 
@@ -1819,34 +1992,56 @@ Il n'est ainsi pas nécessaire de générer toute la trajectoire de la météo j
 \end{center}
 
 
+
+
+\begin{algorithm}
+\caption{Algorithme de rejet}
+\begin{algorithmic}[1]
+\State $\theta \gets N \times max(\lambda_1,\lambda_2,\lambda_3)$
+\State $k \gets 0$
+\State $N_{sim} \gets \sim P(\theta)$
+
+$\text{Simuler } (T_1, . . . , T_N) \text{ suivant les points d’un processus de}$
+
+$\text{Poisson homogène d'intensité } \theta \text{ dans } [0,356]$
+
+$\text{Trier le vecteur } (T_1, . . . , T_N)$
+
+\For{$i = 0$ \textbf{to} $N_{sim}$} 
+
+$U \gets \sim U([0,1[)$ 
+
+\If {La $\lfloor T_i \rfloor$-ème étape de $(H_k)_k$ a été simulée}
+\If {$\theta*U \leq \Delta(T_i)$}
+\State $k \gets k + 1$
+\State $T_k^{'} \gets T_i$
+\EndIf
+\Else
+
+Simuler la trajectoire jusqu'à la $\lfloor T_i \rfloor$-ème étape
+
+\If {$\theta*U \leq \Delta(T_i)$}
+\State $k \gets k + 1$
+\State $T_k^{'} \gets T_i$
+\EndIf
+\EndIf
+\EndFor
+
+\Return{$(T_1^{'},...,T_k^{'})$}
+
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
-\textcolor{black!60}{1}
-
-\textcolor{black!60}{2}
 
 \end{minipage}
-\begin{minipage}[r]{0.88\textwidth}
-
-    def run\_ruine(self, rounds=365, draw=True):
-        N\_sim = np.random.poisson(lam=self.theta*rounds)
-        \# Nous essayer d'optimiser le code de facon a que l'on ait besoin de simmuler toute la trajectoire de la chaine de markov, si et seulement si l'information qu'elle apport nous ait nécéssaire.
-        for k in range(N\_sim):
-            va\_transitoire = np.random.uniform(0,rounds)
-            va\_transitoire\_aux = int(va\_transitoire)
-            if (va\_transitoire\_aux in self.trajectory): \# recherche en temps constant
-                if (np.random.uniform(0,self.theta) <= self.settings.parameters["N"]*self.trajectory[va\_transitoire\_aux]):
-                    bisect.insort(self.T,va\_transitoire) \# o(lnn)
-            else:
-                for i in range(va\_transitoire\_aux - self.round + 2): \# Nombre de tours qu'il nous reste pour que va\_transitioire\_aux soit dans le dictionnaire
-                    self.state, self.round, self.trajectory[self.round] = self.transitions\_walker\_table[self.indexa[self.state]].run(), self.round + 1, self.state
-                if (np.random.uniform(0,self.theta) <= self.settings.parameters["N"]*self.trajectory[va\_transitoire\_aux]):
-                    bisect.insort(self.T,va\_transitoire) \# o(lnn)
-        if draw:
-            X = [self.sinister.loi\_X\_run() for k in range(len(self.T))]
-            X[0] = 0
-            drawP(T=self.T, X=X)
-            drawRt(T=self.T, X=X, N=self.settings.parameters["N"], u=self.settings.parameters["u"], c=self.settings.parameters["c"])
+\begin{minipage}[r]{0.8\textwidth}
+L'implémentation ci-dessus est quelque peu inspirée d'une méthode de rejet. Par soucis d'honnêteté intellectuelle il nous faut reconnaitre la sensibilité de ce dernier aux valeurs importantes prises par $(\lambda_1, \lambda_2, \lambda_3)$.
 \end{minipage}
 \end{center}
 
@@ -1854,8 +2049,345 @@ Il n'est ainsi pas nécessaire de générer toute la trajectoire de la météo j
 
 
 
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\phantom{aa}
+
+\textcolor{black!60}{7}
+
+\phantom{aa}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\textcolor{black!60}{10}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{11}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{12}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{13}
+
+\textcolor{black!60}{14}
+
+\textcolor{black!60}{15}
+
+\textcolor{black!60}{16}
+
+\textcolor{black!60}{17}
+
+\phantom{aa}
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{run\_ruine}(self, rounds\textcolor{mymauve}{=}\textcolor{codegreen}{365}, draw\textcolor{mymauve}{=}\textcolor{orange!80}{True}):
+
+\phantom{aaaa}N\_sim \textcolor{mymauve}{=} np.\textcolor{blue}{random.poisson}(lam\textcolor{mymauve}{=}self.\textcolor{blue}{theta}\textcolor{mymauve}{*}rounds)
+        \textcolor{mymauve}{\# \textit{Nous essayer d'optimiser le code de façon a que l'on ait besoin de simuler toute la trajectoire de la chaine de markov, si et seulement si l'information qu'elle apport nous ait nécessaire.}}
+        
+\phantom{aaaa}\textcolor{codegreen}{for} k \textcolor{codegreen}{in} \textcolor{codegreen}{range}(N\_sim):
+
+\phantom{aaaaaaaa}va\_transitoire \textcolor{mymauve}{=} np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0},rounds)
+
+\phantom{aaaaaaaa}va\_transitoire\_aux \textcolor{mymauve}{=} \textcolor{codegreen}{int}(va\_transitoire)
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{if} (va\_transitoire\_aux \textcolor{codegreen}{in} self.\textcolor{blue}{trajectory}): \textcolor{mymauve}{\# \textit{recherche en temps constant}}
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{if} (np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0},self.\textcolor{blue}{theta}) \textcolor{mymauve}{<=} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}]\textcolor{mymauve}{*}self.\textcolor{blue}{trajectory}[va\_transitoire\_aux]):
+                
+\phantom{aaaaaaaaaaaaaaaa}bisect.\textcolor{blue}{insort}(self.\textcolor{blue}{T},va\_transitoire) \textcolor{mymauve}{\# \textit{o(lnn)}}
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{else}:
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(va\_transitoire\_aux \textcolor{mymauve}{-} self.round \textcolor{mymauve}{+} \textcolor{codegreen}{2}): \textcolor{mymauve}{\# \textit{Nombre de tours qu'il nous reste pour que va\_transitioire\_aux soit dans le dictionnaire}}
+
+\phantom{aaaaaaaaaaaaaaaaaaaa}self.\textcolor{blue}{state}, self.\textcolor{blue}{round}, self.\textcolor{blue}{trajectory}[self.\textcolor{blue}{round}] \textcolor{mymauve}{=} self.\textcolor{blue}{transitions\_walker\_table}[self.\textcolor{blue}{indexa}[self.\textcolor{blue}{state}]].\textcolor{blue}{run}(), self.\textcolor{blue}{round} \textcolor{mymauve}{+} \textcolor{codegreen}{1}, self.\textcolor{blue}{state}
+
+\phantom{aaaaaaaaaaaaaaaaaaaa}\textcolor{codegreen}{if} (np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0},self.\textcolor{blue}{theta}) \textcolor{mymauve}{<=} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}]\textcolor{mymauve}{*}self.\textcolor{blue}{trajectory}[va\_transitoire\_aux]):
+
+\phantom{aaaaaaaaaaaaaaaaaaaaaaaa}bisect.\textcolor{blue}{insort}(self.\textcolor{blue}{T},va\_transitoire) \textcolor{mymauve}{\# \textit{ o(lnn)}}
+
+\phantom{aaaa}\textcolor{codegreen}{if} draw:
+
+\phantom{aaaaaaaa}X \textcolor{mymauve}{=} [self.\textcolor{blue}{sinister.loi\_X\_run}() \textcolor{codegreen}{for} k \textcolor{codegreen}{in} \textcolor{codegreen}{range}(\textcolor{codegreen}{len}(self.\textcolor{blue}{T}))]
+
+\phantom{aaaaaaaa}X[\textcolor{codegreen}{0}] \textcolor{mymauve}{=} \textcolor{codegreen}{0}
+
+\phantom{aaaaaaaa}drawP(T\textcolor{mymauve}{=}self.\textcolor{blue}{T}, X\textcolor{mymauve}{=}X)
+
+\phantom{aaaaaaaa}drawRt(T\textcolor{mymauve}{=}self.\textcolor{blue}{T}, X\textcolor{mymauve}{=}X, N\textcolor{mymauve}{=}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}], u\textcolor{mymauve}{=}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"u"}], c\textcolor{mymauve}{=}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"c"}])
+\end{minipage}
+\end{center}
+
+
+
+\subsection{Vérifications d'usage}
+
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img6}
+\end{center}
+
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img8}
+\end{center}
+
+
+
+
+
+\subsection{Probabilité de ruine}
+\textbf{Première approche :}
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\phantom{aa}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\phantom{aa}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\textcolor{black!60}{10}
+
+\textcolor{black!60}{11}
+
+\textcolor{black!60}{12}
+
+\textcolor{black!60}{13}
+
+\textcolor{black!60}{14}
+
+\textcolor{black!60}{15}
+
+\textcolor{black!60}{16}
+
+\textcolor{black!60}{17}
+
+\textcolor{black!60}{18}
+
+\phantom{aa}
+
+\textcolor{black!60}{19}
+
+\textcolor{black!60}{20}
+
+\textcolor{black!60}{21}
+
+\textcolor{black!60}{22}
+
+\phantom{aa}
+
+\textcolor{black!60}{23}
+
+\textcolor{black!60}{24}
+
+\textcolor{black!60}{25}
+
+\textcolor{black!60}{26}
+
+\textcolor{black!60}{27}
+
+\textcolor{black!60}{28}
+
+
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{modele\_A\_meteo\_commune}(N\_assures, u, c, horizon, M, H0, lambd, p, x0, b, sigma, delta, a, alpha):
+
+\phantom{aaaa}H \textcolor{mymauve}{=} simuler\_chaine\_markov(M, H0, horizon)
+
+\phantom{aaaa}T\_all \textcolor{mymauve}{=} []
+
+\phantom{aaaa}X\_all \textcolor{mymauve}{=} []
+
+\phantom{aaaa}\textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(N\_assures):
+
+\phantom{aaaaaaaa}sinistres\_i \textcolor{mymauve}{=} simuler\_sinistres\_avec\_temps(H, lambd, p, x0, b, sigma, delta, a, alpha)
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{if} \textcolor{codegreen}{len}(sinistres\_i) \textcolor{mymauve}{>} \textcolor{codegreen}{0}:
+
+\phantom{aaaaaaaaaaaa}T\_i \textcolor{mymauve}{=} np.\textcolor{blue}{array}([t \textcolor{codegreen}{for} (t, x) \textcolor{codegreen}{in} sinistres\_i])
+
+\phantom{aaaaaaaaaaaa}X\_i \textcolor{mymauve}{=} np.\textcolor{blue}{array}([x \textcolor{codegreen}{for} (t, x) \textcolor{codegreen}{in} sinistres\_i])
+
+\phantom{aaaaaaaaaaaa}T\_all.\textcolor{blue}{append}(T\_i)
+
+\phantom{aaaaaaaaaaaa}X\_all.\textcolor{blue}{append}(X\_i)
+
+\phantom{aaaa}\textcolor{mymauve}{\# \textit{S'il n'y a aucun sinistre chez tous les assurés}}
+
+\phantom{aaaa}\textcolor{codegreen}{if} \textcolor{codegreen}{len}(T\_all) \textcolor{mymauve}{==} \textcolor{codegreen}{0}:
+
+\phantom{aaaaaaaa}\textcolor{teal}{return} np.\textcolor{blue}{array}([]), np.\textcolor{blue}{array}([]), \textcolor{codegreen}{None}
+
+\phantom{aaaa}\textcolor{mymauve}{\# \textit{On fusionne tous les sinistres dans une seule chronologie}}
+
+\phantom{aaaa}T\_global \textcolor{mymauve}{=} np.\textcolor{blue}{concatenate}(T\_all)
+
+\phantom{aaaa}X\_global \textcolor{mymauve}{=} np.\textcolor{blue}{concatenate}(X\_all)
+
+\phantom{aaaa}indices\_tri \textcolor{mymauve}{=} np.\textcolor{blue}{argsort}(T\_global) \textcolor{mymauve}{\# \textit{retourne une permutation d'indices pour avoir les temps triés par ordre croissant}}
+
+\phantom{aaaa}T\_global \textcolor{mymauve}{=} T\_global[indices\_tri]
+
+\phantom{aaaa}X\_global \textcolor{mymauve}{=} X\_global[indices\_tri]
+
+\phantom{aaaa}\textcolor{mymauve}{\# \textit{Calcul du processus de réserve agrégée}}
+
+\phantom{aaaa}Rt \textcolor{mymauve}{=} N\_assures \textcolor{mymauve}{*} u \textcolor{mymauve}{+} N\_assures \textcolor{mymauve}{*} c \textcolor{mymauve}{*} T\_global \textcolor{mymauve}{-} np.\textcolor{blue}{cumsum}(X\_global)
+
+\phantom{aaaa}\textcolor{mymauve}{\# \textit{Détection de la ruine}}
+
+\phantom{aaaa}indices\_ruine \textcolor{mymauve}{=} np.\textcolor{blue}{where}(Rt \textcolor{mymauve}{<} \textcolor{mymauve}{0})[\textcolor{mymauve}{0}]
+
+\phantom{aaaa}t\_ruine \textcolor{mymauve}{=} \textcolor{codegreen}{None}
+
+\phantom{aaaa}\textcolor{codegreen}{if} \textcolor{codegreen}{len}(indices\_ruine) \textcolor{mymauve}{>} \textcolor{codegreen}{0}:
+
+\phantom{aaaaaaaa}t\_ruine \textcolor{mymauve}{=} T\_global[indices\_ruine[\textcolor{codegreen}{0}]]
+
+\phantom{aaaa}\textcolor{teal}{return} T\_global, Rt, t\_ruine
+
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+
+
+\textbf{Seconde approche :}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\phantom{aa}
+
+\textcolor{black!60}{9}
+
+\textcolor{black!60}{10}
+
+\textcolor{black!60}{11}
+
+
+
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{run}(self):
+
+\phantom{aaaa}self.\textcolor{blue}{run\_ruine}(draw\textcolor{mymauve}{=}\textcolor{orange!80}{False})
+
+\phantom{aaaa}d\_sum \textcolor{mymauve}{=} \textcolor{codegreen}{0} 
+
+\phantom{aaaa}x\_sum \textcolor{mymauve}{=} \textcolor{codegreen}{0}
+
+\phantom{aaaa}\textcolor{codegreen}{for} k \textcolor{codegreen}{in} \textcolor{codegreen}{range}(\textcolor{codegreen}{1},\textcolor{codegreen}{len}(self.\textcolor{blue}{T})):
+
+\phantom{aaaaaaaa}d\_sum \textcolor{mymauve}{=} d\_sum \textcolor{mymauve}{+} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}]\textcolor{mymauve}{*}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"c"}]\textcolor{mymauve}{*}self.\textcolor{blue}{T}[k]
+
+\phantom{aaaaaaaa}x\_sum \textcolor{mymauve}{=} x\_sum \textcolor{mymauve}{+} self.\textcolor{blue}{sinister.loi\_X\_run}()
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{if} (d\_sum\textcolor{mymauve}{/}k \textcolor{mymauve}{-} x\_sum \textcolor{mymauve}{<= -}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}]\textcolor{mymauve}{*}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"u"}]):
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{global} globsum\_moda
+
+\phantom{aaaaaaaaaaaa}globsum\_moda \textcolor{mymauve}{=} globsum\_moda \textcolor{mymauve}{+} \textcolor{codegreen}{1}
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{break};
+
+
+\end{minipage}
+\end{center}
+
+
+
+
+
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img11}
+\captionof{figure}{Évolution de la probabilité de ruine en fonction de $u$ et de $c$}
+\end{center}
+
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img12}
+\captionof{figure}{Évolution de la probabilité de ruine en fonction de $a$ et de $\alpha$}
+\end{center}
+
+
+
+
+
 \subsection{Modèle B}
-\subsection{Complexité algorithmique}
+\subsection{Complexités algorithmiques}
 
 
 \part{Conclusion}

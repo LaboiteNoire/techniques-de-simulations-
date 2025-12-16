@@ -1,33 +1,35 @@
 \babel@toc {french}{}\relax 
-\contentsline {part}{I\hspace {1em}Préambule}{3}{part.1}%
-\contentsline {subsection}{\numberline {0.1}Avant-propos}{3}{subsection.0.1}%
-\contentsline {subsection}{\numberline {0.2}Notations}{3}{subsection.0.2}%
-\contentsline {subsection}{\numberline {0.3}Objets du Problème}{5}{subsection.0.3}%
-\contentsline {section}{\numberline {1}Organisation du travail}{6}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Notes d'updates}{6}{subsection.1.1}%
-\contentsline {part}{II\hspace {1em}Aspects théoriques}{6}{part.2}%
-\contentsline {section}{\numberline {2}modélisation}{7}{section.2}%
-\contentsline {subsection}{\numberline {2.1}simulation de $X_{norm}$}{7}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Simulation de $X_{puissance}$}{7}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Conditions météorologiques et chaines de Markov $(H_k)_{k \in \mathbb {N}^{*}}$}{8}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Occurrences des sinistres (modèle A)}{10}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Probabilité de Ruine Annuelle (modèle A)}{12}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Occurrences des sinistres (modèle B)}{13}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}Probabilité de Ruine Annuelle (modèle B)}{13}{subsection.2.7}%
-\contentsline {part}{III\hspace {1em}Aspects Programmation}{14}{part.3}%
-\contentsline {section}{\numberline {3}Commentaires sur les techniques de programmation}{14}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Dépendances}{14}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}$X_{norm}$}{14}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}$X_{puissance}$}{16}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}$Z$}{16}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}$X$}{17}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Vérifications d'usage}{19}{subsection.3.6}%
-\contentsline {section}{\numberline {4}Les différents modèles}{19}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Modèle A}{19}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Modèle B}{20}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Complexité algorithmique}{20}{subsection.4.3}%
-\contentsline {part}{IV\hspace {1em}Conclusion}{20}{part.4}%
-\contentsline {section}{\numberline {5}Commentaires sur la pertinence du modèle}{20}{section.5}%
-\contentsline {section}{\numberline {6}Évolutions possibles du modèle}{20}{section.6}%
-\contentsline {section}{\numberline {7}Commentaires}{20}{section.7}%
-\contentsline {section}{\numberline {8}Annexes et contacts}{20}{section.8}%
+\contentsline {part}{I\hspace {1em}Préambule}{4}{part.1}%
+\contentsline {subsection}{\numberline {0.1}Avant-propos}{4}{subsection.0.1}%
+\contentsline {subsection}{\numberline {0.2}Notations}{4}{subsection.0.2}%
+\contentsline {subsection}{\numberline {0.3}Objets du Problème}{6}{subsection.0.3}%
+\contentsline {section}{\numberline {1}Organisation du travail}{7}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Notes d'updates}{7}{subsection.1.1}%
+\contentsline {part}{II\hspace {1em}Aspects théoriques}{7}{part.2}%
+\contentsline {section}{\numberline {2}modélisation}{8}{section.2}%
+\contentsline {subsection}{\numberline {2.1}simulation de $X_{norm}$}{8}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Simulation de $X_{puissance}$}{8}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Conditions météorologiques et chaines de Markov $(H_k)_{k \in \mathbb {N}^{*}}$}{9}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Occurrences des sinistres (modèle A)}{11}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Probabilité de Ruine Annuelle (modèle A)}{13}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Occurrences des sinistres (modèle B)}{14}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Probabilité de Ruine Annuelle (modèle B)}{14}{subsection.2.7}%
+\contentsline {part}{III\hspace {1em}Aspects Programmation}{15}{part.3}%
+\contentsline {section}{\numberline {3}Commentaires sur les techniques de programmation}{15}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Dépendances}{15}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}$X_{norm}$}{15}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}$X_{puissance}$}{17}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}$Z$}{17}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}$X$}{18}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Vérifications d'usage}{20}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Les différents modèles}{21}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Modèle A}{21}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Vérifications d'usage}{23}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Probabilité de ruine}{24}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Modèle B}{25}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Complexités algorithmiques}{25}{subsection.4.5}%
+\contentsline {part}{IV\hspace {1em}Conclusion}{25}{part.4}%
+\contentsline {section}{\numberline {5}Commentaires sur la pertinence du modèle}{25}{section.5}%
+\contentsline {section}{\numberline {6}Évolutions possibles du modèle}{25}{section.6}%
+\contentsline {section}{\numberline {7}Commentaires}{25}{section.7}%
+\contentsline {section}{\numberline {8}Annexes et contacts}{25}{section.8}%
