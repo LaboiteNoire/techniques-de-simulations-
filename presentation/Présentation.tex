@@ -349,7 +349,7 @@ sont corrélés à travers des conditions météo communes.
 
 \phantom{aaaaaaa} — \textit{On note} $X_{norm}$,
 
-\phantom{aaaaaaaaaaaaaaa} — \textit{la variable aléatoire continue de densité : $f_{norm}$ :}
+\phantom{aaaaaaaaaaaaaaa} — \textit{la variable aléatoire continue de densité $f_{norm}^{*}$ proportionnelle a $f_{norm}$ :}
 
 \[ \forall x \in \mathbb{R}, \text{  } f_{norm}(x) = \mathds{1}_{[0,b]}(x) \text{ } exp(-\dfrac{(x-x_0)^2}{2\sigma^2}) \text{ } (1 + cos(2 \pi \dfrac{x - x_0}{\delta} )^2) \]
 
@@ -406,23 +406,6 @@ sont corrélés à travers des conditions météo communes.
 \end{description}
 
 
-
-
-\footnotetext[1]{\href{run:./Annexe01.pdf}{This is my link}}
-
-
-\href{file:ax01.pdf}{File keyword}
-
-\href{run:./Annexe01.pdf}{Run keyword}
-
-\href{run:foo.pdf}{Ouvrir l'annexe}
-
-\href{run:./foo.tex}{test}
-
-\href{run:./file.txt}{File.txt}
-
-
-
 \section{Organisation du travail}
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
@@ -469,34 +452,33 @@ restent consultables si nécessaire.
 \end{center}
 
 
-\subsection{Notes d'updates}
+
+
+\subsection{Majoration de $X_{norm}$}
+
+\[ f_{norm}(x) = \mathds{1}_{[0,b]}(x) \text{ } exp(-\dfrac{(x-x_0)^2}{2\sigma^2}) \text{ } (1 + cos(2 \pi \dfrac{x - x_0}{\delta} )^2) \]
+
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
 
-Une section que l'on supprimera lors du projet final, mais qui me permet de laisser quelques petits commentaires.
+La loi $\mathbb{P}_{X_{norm}}$, n'étant pas sans rappeler la \textit{loi normale}.
 
-Autant je peux concevoir l'utilité de faire une section optimisée et non optimisée pour $X_{norm}$, autant (comme tu l'as très justement fait remarquer) je ne pense pas que cela soit pertinent pour $X_{puissance}$.
-
-\textbf{Note a moi même : enlevé les tests en fin de page 5.}
-
-\textbf{Note a moi même : italique sur les commentaires.}
-
-\textbf{Note a moi même : enlevé les \_ de x\_0 dans les codeblock}
-
-\textbf{Tenter la réduction de variance sur le modèle A}
-
-
-
+Nous posons donc $g$, la densité de $N(x_0,\sigma^2)$.
 \end{minipage}
 \end{center}
+
+\begin{displaymath}
+\forall x \in [0, b], \dfrac{f(x)}{g(x)} = (\underbrace{1 + \underbrace{cos(2 \pi \dfrac{x - x_0}{\delta} )^2}_{\leq 1}}_{\leq 2}) \times \sqrt{2 \pi}\sigma \leq 2\sigma \sqrt{2 \pi}
+\end{displaymath}
+
 
 
 \part{Aspects théoriques}
 \section{modélisation}
-\subsection{simulation de $X_{norm}$}
+
 \subsection{Simulation de $X_{puissance}$}
 \begin{displaymath}
 \forall (a, \alpha) \in \mathbb{R}_{+}^{*} \times ]1 : + \infty [,
@@ -570,6 +552,7 @@ Or $y \in ]0,1[ \iff 0 < y \iff \bigl\{ x \in \mathbb{R} \text{ | } y \leq \math
 
 \newpage
 
+
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
 
@@ -595,6 +578,7 @@ $F_{X_{puissance}}^{\phantom{aa}-}(y) = sup\bigl\{ x \in [a,+\infty [ \text{ | }
 
 \colorbox{black!30}{Soit $U \sim \mathcal{U}(]0,1[)$, $F_{X_{puissance}}^{\phantom{aa}-}(U) \sim X_{puissance}$}
 \end{center}
+
 
 
 \subsection{Conditions météorologiques et chaines de Markov $(H_k)_{k \in \mathbb{N}^{*}}$}
@@ -1124,13 +1108,13 @@ Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k}
 
 \textcolor{teal}{import} numpy as np
 
-\textcolor{teal}{import} matplotlib.pyplot as plt \textcolor{mymauve}{\# graphics}
+\textcolor{teal}{import} matplotlib.pyplot as plt \textcolor{mymauve}{\# \textit{graphics}}
 
-\textcolor{teal}{import} plotly.express as px \textcolor{mymauve}{\# graphics}
+\textcolor{teal}{import} plotly.express as px \textcolor{mymauve}{\# \textit{graphics}}
 
-\textcolor{teal}{import} threading \textcolor{mymauve}{\# parallélisation}
+\textcolor{teal}{import} threading \textcolor{mymauve}{\# \textit{parallélisation}}
 
-\textcolor{teal}{import} bisect \textcolor{mymauve}{\# insertion dans une liste triée}
+\textcolor{teal}{import} bisect \textcolor{mymauve}{\# \textit{insertion dans une liste triée}}
 
 \end{minipage}
 \end{center}
@@ -1202,7 +1186,7 @@ De plus, la majoration suivante, apparait de façon quasi-immédiate : $f_{norm}
 
 \phantom{aaaa}ind = (x \textcolor{mymauve}{>=} \textcolor{codegreen}{0}) \textcolor{mymauve}{\&} (x \textcolor{mymauve}{<=} b)
 
-\phantom{aaaa}\textcolor{teal}{return} ind\textcolor{mymauve}{*}(np.\textcolor{teal}{exp}(-((x - x0)\textcolor{mymauve}{**}\textcolor{codegreen}{2}) \textcolor{mymauve}{/} (\textcolor{codegreen}{2} \textcolor{mymauve}{*} sigma\textcolor{mymauve}{**}\textcolor{codegreen}{2})) * (\textcolor{codegreen}{1} + np.\textcolor{teal}{cos}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{teal}{pi}\textcolor{mymauve}{*}(x - x0)\textcolor{mymauve}{/}delta)\textcolor{mymauve}{**}\textcolor{codegreen}{2}))
+\phantom{aaaa}\textcolor{teal}{return} ind\textcolor{mymauve}{*}(np.\textcolor{teal}{exp}(-((x - x0)\textcolor{mymauve}{**}\textcolor{codegreen}{2}) \textcolor{mymauve}{/} (\textcolor{codegreen}{2} \textcolor{mymauve}{*} sigma\textcolor{mymauve}{**}\textcolor{codegreen}{2})) \textcolor{mymauve}{*} (\textcolor{codegreen}{1} + np.\textcolor{teal}{cos}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{teal}{pi}\textcolor{mymauve}{*}(x - x0)\textcolor{mymauve}{/}delta)\textcolor{mymauve}{**}\textcolor{codegreen}{2}))
 
 \end{minipage}
 \end{center}
@@ -1246,7 +1230,7 @@ De plus, la majoration suivante, apparait de façon quasi-immédiate : $f_{norm}
 
 \phantom{aaaaaaaa}Y \textcolor{mymauve}{=} np.\textcolor{teal}{random.uniform}(\textcolor{codegreen}{0}, M)
 
-\phantom{aaaaaaaa}\textcolor{teal}{if} Y \textcolor{mymauve}{<=} f\_norm(X,x0,b,sigma,delta):
+\phantom{aaaaaaaa}\textcolor{teal}{if} Y \textcolor{mymauve}{<=} f\_norm(X, x0, b, sigma, delta):
 
 \phantom{aaaaaaaaaaaa}res.\textcolor{teal}{append}(X) \textcolor{mymauve}{\# \textit{condition d'acceptation}}
 
@@ -1358,7 +1342,7 @@ nombre moyen d'itérations\footnotemark[1] pour accepter un point diminue.
 
 \phantom{aaaaaaaa}Y \textcolor{mymauve}{=} np.\textcolor{teal}{random.uniform}(\textcolor{codegreen}{0}, M)
 
-\phantom{aaaaaaaa}\textcolor{teal}{if} Y\textcolor{mymauve}{*}g(X,x0,sigma) <= f\_norm(X,x0,b,sigma,delta):
+\phantom{aaaaaaaa}\textcolor{teal}{if} Y\textcolor{mymauve}{*}g(X, x0, sigma) \textcolor{mymauve}{<=} f\_norm(X, x0, b, sigma, delta):
 
 \phantom{aaaaaaaaaaaa}res.\textcolor{teal}{append}(X) \textcolor{mymauve}{\# \textit{condition d'acceptation}}
 
@@ -1522,7 +1506,7 @@ Elle structure notre code et lui offre une architecture bien plus \textit{arbore
 
 \phantom{aaaaaaaa}self.\textcolor{blue}{colors} \textcolor{mymauve}{=} {\textcolor{red}{"bg"} : \textcolor{codegreen}{0}}
 
-\phantom{aaaaaaaa}self.\textcolor{blue}{parameters} = \{ \textcolor{red}{"x 0"} : x\_0,
+\phantom{aaaaaaaa}self.\textcolor{blue}{parameters} \textcolor{mymauve}{=} \{ \textcolor{red}{"x 0"} : x\_0,
 
 \phantom{aaaaaaaaaaaaaaaa}\textcolor{red}{"b"} : b,
 
@@ -1709,9 +1693,9 @@ Bien que le choix de stocker nos paramètres ait brièvement été aborder, les 
 
 \phantom{aaaaaaaa}\textcolor{codegreen}{while} \textcolor{orange!80}{True}:
 
-\phantom{aaaaaaaaaaaa}X = np.\textcolor{blue}{random.normal}(self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"x 0"}], self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}])   
+\phantom{aaaaaaaaaaaa}X \textcolor{mymauve}{=} np.\textcolor{blue}{random.normal}(self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"x 0"}], self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}])   
             
-\phantom{aaaaaaaaaaaa}Y = np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0}, \textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{blue}{sqrt}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{blue}{pi})\textcolor{mymauve}{*}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}])
+\phantom{aaaaaaaaaaaa}Y \textcolor{mymauve}{=} np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0}, \textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{blue}{sqrt}(\textcolor{codegreen}{2}\textcolor{mymauve}{*}np.\textcolor{blue}{pi})\textcolor{mymauve}{*}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"sigma"}])
 
 \phantom{aaaaaaaaaaaa}\textcolor{codegreen}{if} Y\textcolor{mymauve}{*}self.\textcolor{blue}{g}(x\textcolor{mymauve}{=}X) \textcolor{mymauve}{<=} self.\textcolor{blue}{f\_norm}(x\textcolor{mymauve}{=}X):
 
@@ -1741,11 +1725,11 @@ Bien que le choix de stocker nos paramètres ait brièvement été aborder, les 
 
 \phantom{aaaaaaaa}z \textcolor{mymauve}{=} self.\textcolor{blue}{loi\_z\_run}()
 
-\phantom{aaaaaaaaaaaa}return (z \textcolor{mymauve}{==} \textcolor{codegreen}{0})\textcolor{mymauve}{*}self.\textcolor{blue}{f\_norm\_run}() + (z \textcolor{mymauve}{==} \textcolor{codegreen}{1})\textcolor{mymauve}{*}self.\textcolor{blue}{loi\_de\_puissance\_run}() + (z \textcolor{mymauve}{>} \textcolor{codegreen}{1})\textcolor{mymauve}{*}z
+\phantom{aaaaaaaaaaaa}\textcolor{teal}{return} (z \textcolor{mymauve}{==} \textcolor{codegreen}{0})\textcolor{mymauve}{*}self.\textcolor{blue}{f\_norm\_run}() \textcolor{mymauve}{+} (z \textcolor{mymauve}{==} \textcolor{codegreen}{1})\textcolor{mymauve}{*}self.\textcolor{blue}{loi\_de\_puissance\_run}() \textcolor{mymauve}{+} (z \textcolor{mymauve}{>} \textcolor{codegreen}{1})\textcolor{mymauve}{*}z
 
 \phantom{aaaa}\textcolor{teal}{def} \textcolor{blue}{empiricLikelihood}(self, n\textcolor{mymauve}{=}\textcolor{codegreen}{4000}):
 
-\phantom{aaaaaaaa}hist\_data \textcolor{mymauve}{=} [[self.\textcolor{blue}{f\_norm\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.loi\_de\_puissance\_run() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.\textcolor{blue}{loi\_z\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.\textcolor{blue}{loi\_X\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)]]
+\phantom{aaaaaaaa}hist\_data \textcolor{mymauve}{=} [[self.\textcolor{blue}{f\_norm\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.\textcolor{blue}{loi\_de\_puissance\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.\textcolor{blue}{loi\_z\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)],[self.\textcolor{blue}{loi\_X\_run}() \textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(n)]]
 
 \phantom{aaaaaaaa}group\_labels \textcolor{mymauve}{=} [\textcolor{red}{"X\_norm"}, \textcolor{red}{"X\_puissance"},\textcolor{red}{"Z"},\textcolor{red}{"X"}]
 
@@ -2083,7 +2067,7 @@ En cette idée réside le cœur de notre implémentation première.
 \end{minipage}
 \begin{minipage}[r]{0.88\textwidth}
 
-\textcolor{teal}{def} \textcolor{blue}{simuler\_processus\_poisson}(lambd, horizon=\textcolor{codegreen}{1.0}):
+\textcolor{teal}{def} \textcolor{blue}{simuler\_processus\_poisson}(lambd, horizon\textcolor{mymauve}{=}\textcolor{codegreen}{1.0}):
 
 \phantom{aaaa}T \textcolor{mymauve}{=} []
 
