@@ -454,26 +454,6 @@ restent consultables si nécessaire.
 
 
 
-\subsection{Majoration de $X_{norm}$}
-
-\[ f_{norm}(x) = \mathds{1}_{[0,b]}(x) \text{ } exp(-\dfrac{(x-x_0)^2}{2\sigma^2}) \text{ } (1 + cos(2 \pi \dfrac{x - x_0}{\delta} )^2) \]
-
-\begin{center}
-\begin{minipage}[r]{0.1\textwidth}
-
-\end{minipage}
-\begin{minipage}[r]{0.8\textwidth}
-
-La loi $\mathbb{P}_{X_{norm}}$, n'étant pas sans rappeler la \textit{loi normale}.
-
-Nous posons donc $g$, la densité de $N(x_0,\sigma^2)$.
-\end{minipage}
-\end{center}
-
-\begin{displaymath}
-\forall x \in [0, b], \dfrac{f(x)}{g(x)} = (\underbrace{1 + \underbrace{cos(2 \pi \dfrac{x - x_0}{\delta} )^2}_{\leq 1}}_{\leq 2}) \times \sqrt{2 \pi}\sigma \leq 2\sigma \sqrt{2 \pi}
-\end{displaymath}
-
 
 
 \part{Aspects théoriques}
@@ -588,7 +568,7 @@ $F_{X_{puissance}}^{\phantom{aa}-}(y) = sup\bigl\{ x \in [a,+\infty [ \text{ | }
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-L'on cherche à réaliser un modèle simulant des observations journalières de nos états météorologique.
+L'on cherche à réaliser un modèle simulant des observations journalières de nos états météorologiques.
 
 Pour ce faire (et de façon assez naturelle, nous établirons une \textit{chaine de Markov} $(H_k)_{k \in \mathbb{N}^{*}}$, possédant les propriétés suivantes :
 
@@ -607,9 +587,9 @@ Pour ce faire (et de façon assez naturelle, nous établirons une \textit{chaine
 
 \phantom{aaaaaaa} — \textit{On note} $E = \{ \text{beau temps}, \text{temps couvert}, \text{pluie} \}$, dit \textit{« ensemble des états de $(H_k)_{k \in \mathbb{N}^{*}}$ »}.
 
-\phantom{aaaaaaa} — \textit{On note} $\mu_0$, \textit{une mesure de probabilité sur $(E, \mathcal{A})$, dite « loi initiale de $(H_k)_{k \in \mathbb{N}^{*}}$ », tel que $(\mu_0(i))_{i \in [|1,3|]}$, est une permutation quelconque de $(1,0,0)$}.
+\phantom{aaaaaaa} — \textit{On note} $\mu_0$, \textit{une mesure de probabilité sur $(E, \mathcal{A})$, dite « loi initiale de $(H_k)_{k \in \mathbb{N}^{*}}$ », telle que $(\mu_0(i))_{i \in [|1,3|]}$, est une permutation quelconque de $(1,0,0)$}.
 
-\phantom{aaaaaaa} — \textit{On note} $Q \in M_3(\mathbb{R})$, \textit{une matrice stochastique, dite « matrice de transition de $(H_k)_{k \in \mathbb{N}^{*}}$ », tel que $\forall k \in \mathbb{N}^{*}$\footnotemark[1]} : 
+\phantom{aaaaaaa} — \textit{On note} $Q \in M_3(\mathbb{R})$, \textit{une matrice stochastique, dite « matrice de transition de $(H_k)_{k \in \mathbb{N}^{*}}$ », telle que $\forall k \in \mathbb{N}^{*}$\footnotemark[1]} : 
 
 \begin{displaymath}
 \begin{bmatrix}
@@ -672,11 +652,11 @@ p_{3,1} & p_{3,2} & p_{3,3}
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
 
-\textbf{\textit{Commentaires sur l'implémentation de la chaine de markov}}
+\textbf{\textit{Commentaires sur l'implémentation de la Chaine de Markov}}
 
 \phantom{aaaaaaa}
 
-Une première approche a été de partitionner notre intervalle : $[0,1]$, de telle sorte à pouvoir simuler n'importe qu'elle variable aléatoire à support fini, à l'aide d'une loi uniforme.
+Une première approche a été de partitionner notre intervalle : $[0,1]$, de telle sorte à pouvoir simuler n'importe quelle variable aléatoire à support fini, à l'aide d'une loi uniforme.
 
 Cette approche a le malheureux inconvénient d'avoir (parmi ses implémentations les moins naïves), une complexité de l'ordre de $o(nln(n))$\footnotemark[1].
 
@@ -686,7 +666,7 @@ Comparativement, une autre approche dite de \textit{« Table de Walker\footnotem
 
 \phantom{aaaaaaa}
 
-« La \textit{méthode optimale} serait-elle fonction des conditions initiales? ». La question ne manque pas pertinence, après tout notre loi a support fini ne possède que 3 états. En ce sens une \textit{« Table de Walker »} est-elle réellement une méthode plus optimale que notre \textit{approche naïve}?
+« La \textit{méthode optimale} serait-elle fonction des conditions initiales? ». La question ne manque pas pertinence, après tout notre loi à support fini ne possède que 3 états. En ce sens une \textit{« Table de Walker »} est-elle réellement une méthode plus optimale que notre \textit{approche naïve}?
 
 \phantom{aaaaaaa}
 
@@ -694,9 +674,9 @@ A cela nous avons deux objections :
 
 \phantom{aaaaaaa}
 
- — Pour $k \in \mathbb{N}$, la simulation d'un trajectoire a $k$ étapes, d'une \textit{chaine de Markov} à $n$ états serait de l'ordre de $o(knln(n))$ avec notre approche naïve et de $o(k)$ avec notre \textit{table de walker\footnotemark[3]}.
+ — Pour $k \in \mathbb{N}$, la simulation d'une trajectoire a $k$ étapes, d'une \textit{chaine de Markov} à $n$ états serait de l'ordre de $o(knln(n))$ avec notre approche naïve et de $o(k)$ avec notre \textit{table de walker\footnotemark[3]}.
  
- — Simuler convenablement des conditions météorologique à l'aide d'une unique \textit{chaine de Markov} a 3 états, nous apparait fort improbable. Il est fort à parier que l'utilisateur sera amené à faire varier le nombre d'états : $n$. En ce sens, notre \textit{« modèle à Table de Walker »}, se montre beaucoup plus robuste que le précédent.
+ — Simuler convenablement des conditions météorologiques à l'aide d'une unique \textit{Chaine de Markov} à 3 états, nous apparait fort improbable. Il est fort à parier que l'utilisateur sera amené à faire varier le nombre d'états : $n$. En ce sens, notre \textit{« modèle à Table de Walker »}, se montre beaucoup plus robuste que le précédent.
  
 \phantom{aaaaaaa}
 
@@ -743,7 +723,7 @@ Ainsi, nous faisons donc le pari de la \textit{robustesse} et de \textit{l'adapt
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-À chaque état de notre \textit{chaine de Markov} ($(1,2,3)$) est associé une valeur $\lambda_k \in \mathbb{R}_{+}^{*}$ (respectivement $(\lambda_1,\lambda_2,\lambda_3)$.
+À chaque état de notre \textit{Chaine de Markov} ($(1,2,3)$) est associé une valeur $\lambda_k \in \mathbb{R}_{+}^{*}$ (respectivement $(\lambda_1,\lambda_2,\lambda_3)$.
 
 Notons $N \in \mathbb{N}$, la taille de notre portefeuille.
 
@@ -859,13 +839,13 @@ Cette définition a le bon gout d'être aisément majorable par une formule simp
 \begin{center}
 Montrons nous toutefois sceptiques vis a vis de notre modèle.
 
-Partir du postulat que nos assurés partage une météo commune, n'est pas une idée totalement absurde dans l'absolue, mais reste néanmoins extrêmement discutable dans les faits. Il faudrait pour cela faire l'hypothèse que nos assurés vivent sur un même territoire et que ce territoire est assez restreint pour que sa météo reste uniforme et uni-variée.
+Partir du postulat que nos assurés partagent une météo commune, n'est pas une idée totalement absurde dans l'absolue, mais reste néanmoins extrêmement discutable dans les faits. Il faudrait pour cela faire l'hypothèse que nos assurés vivent sur un même territoire et que ce territoire est assez restreint pour que sa météo reste uniforme et uni-variée.
 
 Le modèle B, fait l'hypothèse inverse (qui est tout aussi discutable).
 
-Notre modèle A repose sur une autre hypothèse : que l'état de la météo au jour $n$, dépends uniquement de l'état de la météo au jours $n-1$.
+Notre modèle A repose sur une autre hypothèse : que l'état de la météo au jour $n$, dépend uniquement de l'état de la météo au jour $n-1$.
 
-Nous n'expliqueront pas a quel point cette hypothèse est absurde, néanmoins la valeur d'un modèle ne se limite pas a la somme de la valeur de ses axiomes (ex : les modèles de base de la micro-économie).
+Nous n'expliquerons pas a quel point cette hypothèse est absurde, néanmoins la valeur d'un modèle ne se limite pas a la somme de la valeur de ses axiomes (ex : les modèles de base de la micro-économie).
 \end{center}
 
 \end{tcolorbox}
@@ -894,7 +874,7 @@ Nous n'expliqueront pas a quel point cette hypothèse est absurde, néanmoins la
 
 \phantom{aaaaaaa} — \textit{On note $N$, la taille de notre portefeuille.}
 
-\phantom{aaaaaaa} — \textit{On note $u$, l'investissement initial et individuel par assurés.}
+\phantom{aaaaaaa} — \textit{On note $u$, l'investissement initial et individuel par assuré.}
 
 \phantom{aaaaaaa} — \textit{On note $c$, le taux de prime par assuré et par unité de temps.}
 
@@ -1229,6 +1209,9 @@ De plus, la majoration suivante, apparait de façon quasi-immédiate : $f_{norm}
 \phantom{aaaa}
 
 \textbf{Deuxième approche :}
+
+
+
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
 
@@ -1352,7 +1335,7 @@ Cette partie sera relativement succincte. Les causes de cette concision sont dou
 
 \phantom{aaaa}— Premièrement car tous les calculs ont déjà été traités dans la partie \hyperlink{ref1}{\textcolor{blue}{\textbf{\textit{Modélisation}}}}.
  
-\phantom{aaaa}— Deuxièmement car le code qui y est associé est lui même relativement succint.
+\phantom{aaaa}— Deuxièmement car le code qui y est associé est lui même relativement succinct.
 
 La complexité est ici en temps constant et nous voyons mal comment optimiser ce code sans passer par un \textit{interfacage c++}.
 \end{minipage}
@@ -1389,7 +1372,7 @@ $Z$ suit une loi de probabilité qui nous est inconnue, il n'existe donc aucune 
 
 Il parait assez évident, qu'une approche par \textit{« inversion de la fonction de répartition »}, serait complètement hors propos.
 
-A terme, nous avons finalement opter pour une méthode de rejet (bien que la \textit{« table de walker »} nous ait un instant effleurer l'esprit).
+A terme, nous avons finalement opter pour une méthode de rejet (bien que la \textit{« table de walker »} nous ait un instant effleuré l'esprit).
 
 \phantom{aa}
 
@@ -1537,16 +1520,7 @@ Elle structure notre code et lui offre une architecture bien plus \textit{arbore
 \phantom{aaaa}
 
 
-\begin{center}
-\begin{minipage}[r]{0.1\textwidth}
 
-\end{minipage}
-\begin{minipage}[r]{0.8\textwidth}
-\begin{center}
-Bien que le choix de stocker nos paramètres ait brièvement été aborder, les nombreuses ouvertures et fermetures de fichiers successives auraient un impact néfaste et difficilement quantifiable sur la qualité de notre code.
-\end{center}
-\end{minipage}
-\end{center}
 
 
 
@@ -1733,7 +1707,7 @@ Bien que le choix de stocker nos paramètres ait brièvement été aborder, les 
 
 
 
-\subsection{chaines de Markov $(H_k)_{k \in \mathbb{N}^{*}}$}
+\subsection{Chaines de Markov $(H_k)_{k \in \mathbb{N}^{*}}$}
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
 
@@ -1872,9 +1846,9 @@ Notre \textit{« table de walker »}, semble représenter fidèlement la distrib
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-Afin de valider empiriquement la bonne implémentation de $(H_k)_{k \in \mathbb{N}^{*}}$, nous avons voulu comparer ses valeurs moyennes prises a grandes échéances avec nos valeurs théoriques espérées.
+Afin de valider empiriquement la bonne implémentation de $(H_k)_{k \in \mathbb{N}^{*}}$, nous avons voulu comparer ses fréquences d'apparitions avec nos valeurs théoriques espérées.
 
-La chaine $(H_k)_{k \in \mathbb{N}^{*}}$ étant \textit{irréductible} et son ensemble d'états $E$ fini, nous sommes assurés de l'existence et par la même et l'unicité d'une \textit{« loi invariante »}, propre a $(H_k)_{k \in \mathbb{N}^{*}}$. 
+La chaine $(H_k)_{k \in \mathbb{N}^{*}}$ étant \textit{irréductible} et son ensemble d'états $E$ fini, nous sommes assurés de l'existence et de l'unicité d'une \textit{« loi invariante »}, propre a $(H_k)_{k \in \mathbb{N}^{*}}$. 
 
 \end{minipage}
 \end{center}
@@ -2025,7 +1999,7 @@ La superposition des barres correspondant aux fréquences empiriques et des lign
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-De prime abord, nous avons envisager de simuler étape par étapes notre sinistralité journalière, partant du postulat que l'agglomération de ces dernières formerait a terme notre sinistralité annuelle.  
+De prime abord, nous avons envisagé de simuler étape par étape notre sinistralité journalière, partant du postulat que l'agglomération de ces dernières formerait à terme notre sinistralité annuelle.  
 
 En cette idée réside le cœur de notre implémentation première. 
 \end{minipage}
@@ -2171,9 +2145,9 @@ La \textbf{\textit{fonction}} \textcolor{blue}{simuler\_processus\_poisson}, sim
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
-Cette partie bénéficiera grandement des formules exposés en \hyperlink{ref2}{\textcolor{blue}{\textbf{\textit{$3^e$ partie}}}}, sur notre capacité a procéder étapes par étapes, afin d'optimiser notre code.
+Cette partie bénéficiera grandement des formules exposées en \hyperlink{ref2}{\textcolor{blue}{\textbf{\textit{$3^e$ partie}}}}, sur notre capacité à procéder étapes par étapes, afin d'optimiser notre code.
 
-En premier lieux, nous générons nos possibles dates d'occurrences par une \textit{simili} méthode de rejet, puis nous générons la trajectoire de la \textit{chaine de markov} portant en elle l'information nécessaire a la bonne formation de nos critères de rejet.
+En premier lieu, nous générons nos possibles dates d'occurrences par une \textit{simili} méthode de rejet, puis nous générons la trajectoire de la \textit{Chaine de Markov} portant en elle l'information nécessaire a la bonne formation de nos critères de rejet.
 
 Il n'est ainsi pas nécessaire de générer toute la trajectoire de la météo journalière, si l'information que celle-ci nous apporte ne nous est pas indispensable.
 \end{minipage}
@@ -2305,7 +2279,7 @@ L'implémentation ci-dessus est quelque peu inspirée d'une méthode de rejet. P
 \textcolor{teal}{def} \textcolor{blue}{run\_ruine}(self, rounds\textcolor{mymauve}{=}\textcolor{codegreen}{365}, draw\textcolor{mymauve}{=}\textcolor{orange!80}{True}):
 
 \phantom{aaaa}N\_sim \textcolor{mymauve}{=} np.\textcolor{blue}{random.poisson}(lam\textcolor{mymauve}{=}self.\textcolor{blue}{theta}\textcolor{mymauve}{*}rounds)
-        \textcolor{mymauve}{\# \textit{Nous essayer d'optimiser le code de façon a que l'on ait besoin de simuler toute la trajectoire de la chaine de markov, si et seulement si l'information qu'elle apport nous ait nécessaire.}}
+        \textcolor{mymauve}{\# \textit{Nous essayer d'optimiser le code de façon a que l'on ait besoin de simuler toute la trajectoire de la Chaine de Markov, si et seulement si l'information qu'elle apport nous ait nécessaire.}}
         
 \phantom{aaaa}\textcolor{codegreen}{for} k \textcolor{codegreen}{in} \textcolor{codegreen}{range}(N\_sim):
 
@@ -2573,18 +2547,18 @@ L'implémentation ci-dessus est quelque peu inspirée d'une méthode de rejet. P
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
 
-Par égard pour notre exercice premier, nous avons trouver pertinente l'idée d'étudier le comportement de notre probabilité de ruine comparativement a nos niveaux de réserves($u$ et $c$). 
+Par égard pour notre exercice premier, nous avons trouvé pertinente l'idée d'étudier le comportement de notre probabilité de ruine comparativement à nos niveaux de réserves($u$ et $c$). 
 
-Ce résultat (conforme a nos prédictions, il faut bien l'admettre), renforce d'autant plus la crédibilité de notre modèle.
+Ce résultat (conforme aux prédictions, il faut bien l'admettre), renforce d'autant plus la crédibilité de notre modèle.
 
 \phantom{aaaa}
 
-En effet, il parait assez intuitif que réduire nos réserves (que cela se fasse par le biais de de l'investissement initial $u$, ou par le biais du taux de prime journalière $c$), expose un peu plus l'assureur au risque d'insolvabilité (entendez par la que la probabilité de ruine serait une fonction décroissante de nos réserves). 
+En effet, il parait assez intuitif que réduire nos réserves (que cela se fasse par le biais de de l'investissement initial $u$, ou par le biais du taux de prime journalière $c$), expose un peu plus l'assureur au risque d'insolvabilité (entendez par là que la probabilité de ruine serait une fonction décroissante de nos réserves). 
 
 \phantom{aaaa}
 
 Cela nous offre d'une certaine façon des perspectives nouvelles.
-Notre modèle stochastique pouvant se révélé lourd par certains aspects, nous pourrions interpoler ses résultats, ou entrainer un modèle d'apprentissage statistique quelconque a prédire les sorties de ce dernier. 
+Notre modèle stochastique pouvant se révéler lourd par certains aspects, nous pourrions interpoler ses résultats, ou entrainer un modèle d'apprentissage statistique quelconque a prédire les sorties de ce dernier. 
 \end{minipage}
 \end{center}
 
@@ -2671,7 +2645,7 @@ Néanmoins nous tenons par soucis d'honnêteté intellectuelle a signaler que le
 
 \begin{center}
 \begin{minipage}[r]{0.6\textwidth}
-lorsque $\delta$ est très grand, le \textit{terme oscillant} devient quasiment constant et la densité tends vers une loi normale tronquée. Dans ce cas, la méthode optimisée (\textit{rejet gaussien})
+lorsque $\delta$ est très grand, le \textit{terme oscillant} devient quasiment constant et la densité tend vers une loi normale tronquée. Dans ce cas, la méthode optimisée (\textit{rejet gaussien})
 doit être particulièrement performante.
 
 
@@ -2802,7 +2776,7 @@ Nous insistons toutefois sur une limite inhérente a notre implémentation (ou p
 
 A cela vient s'additionner une limite fort incapacitante : l'impossibilité de pouvoir réinitialiser un \textit{thread python}.
 
-Nous ne doutons pas qu'il puisse exister une solution satisfaisante a ce problème, néanmoins ne arrivons petit a petit a court de temps.  
+Nous ne doutons pas qu'il puisse exister une solution satisfaisante à ce problème, nous ne l'avons simplement pas trouver par manque de temps.  
 \end{minipage}
 \end{center}
 
@@ -2989,7 +2963,7 @@ Nous ne doutons pas qu'il puisse exister une solution satisfaisante a ce problè
 \textcolor{teal}{def} \textcolor{blue}{run}(self, rounds\textcolor{mymauve}{=}\textcolor{codegreen}{365}):
 
 \phantom{aaaa}N\_sim \textcolor{mymauve}{=} np.\textcolor{blue}{random.poisson}(lam\textcolor{mymauve}{=}self.\textcolor{blue}{theta}\textcolor{mymauve}{*}rounds)
-        \textcolor{mymauve}{\# \textit{Nous essayer d'optimiser le code de façon a que l'on ait besoin de simuler toute la trajectoire de la chaine de markov, si et seulement si l'information qu'elle apport nous ait nécessaire.}}
+        \textcolor{mymauve}{\# \textit{Nous essayer d'optimiser le code de façon a que l'on ait besoin de simuler toute la trajectoire de la Chaine de Markov, si et seulement si l'information qu'elle apport nous ait nécessaire.}}
         
 \phantom{aaaa}\textcolor{codegreen}{for} k \textcolor{codegreen}{in} \textcolor{codegreen}{range}(N\_sim):
 
@@ -3106,41 +3080,72 @@ La \textbf{\textit{fonction}} \textcolor{blue}{T\_run} génère la liste des occ
 
 
 
-
-
-\subsection{Complexités algorithmiques}
-
-
 \part{Conclusion}
-\section{Commentaires sur la pertinence du modèle}
+
+
 \section{Évolutions possibles du modèle}
+\section{Commentaires}
+
 \begin{center}
 \begin{minipage}[r]{0.1\textwidth}
 
 \end{minipage}
 \begin{minipage}[r]{0.8\textwidth}
 
-Interfaçage avec d'autres langages peut-être plus performants : R, C++
+Nos modèles reposent sur plusieurs techniques de simulations (que nous voulions plus ou moins exhaustives).
 
-Apprentissage statistique de notre modèle.
+Entre autres des \textit{Tables de Walker}, des méthodes de rejets, ou encore des méthodes d'\textit{inversions de fonctions de répartition}.
 
-NB : vérifier que R soit plus performant que python.
+Néanmoins il ne fait aucun doute que certains points peuvent encore être optimisés.
+
+Pour ce faire nous proposons plusieurs solutions :
+
+ — \textit{Interfaçer} notre code avec du code C++.
+ 
+ — Massivement paralléliser nos calculs sur un GPU.
+
+ — Entrainer un modèle d'apprentissage statistique quelconque à prédire les sorties de notre modèle.
 
 \end{minipage}
 \end{center}
-\section{Commentaires}
-\section{Annexes et contacts}
 
+
+
+\section{Commentaires sur la pertinence du modèle}
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+
+Nous le savons, nos modèles $A$ et $B$ ne sont pas réalistes.
+
+L'un suppose que nos assurés partagent tous sans exception une météo commune et l'autre postule l'inverse.
+
+Par ailleurs nos deux modèle reposent sur deux hypothèses encore plus discutables : l'une est que la sinistralité est homogène (la loi de $X$ est commune à tous les assurés et ne dépends pas de la météo), et l'autre que les montants sont indépendants d'un individus à un autre.
+
+Or (que l'on parle de risques climatiques et ou météorologiques), l'impacte financier et économique n'est jamais le résultat d'une expérience purement individuelle.
+
+\end{minipage}
+\end{center}
+
+
+\section{Annexes et contacts}
 \subsection*{Annexes et contacts}
 
 
 
 \begin{center}
 \begin{minipage}[r]{0.4\textwidth}
-
+\begin{center}
+\href{https://github.com/priscilla1269}{\includegraphics[width=1cm,height=1cm]{img2}}
+\end{center}
 \end{minipage}
 \begin{minipage}[r]{0.4\textwidth}
-
+\begin{center}
+\href{https://github.com/LaboiteNoire}{\includegraphics[width=1cm,height=1cm]{img2}}
+\end{center}
 
 \end{minipage}
 \end{center}
