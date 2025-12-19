@@ -1052,18 +1052,6 @@ Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k}
 \phantom{aaaaaaa}
 
 
-\begin{center}
-\begin{minipage}[r]{0.1\textwidth}
-
-\end{minipage}
-\begin{minipage}[r]{0.8\textwidth}
-
-\textbf{\textit{Réduction de variance}}
-
-\phantom{aaaaaaa}
-
-\end{minipage}
-\end{center}
 
 
 
@@ -1073,7 +1061,7 @@ Le fait que nous ayons deux sommes (d'une part $\sum_{i=1}^{k} (\dfrac{NcT_k}{k}
 
 
 
-\subsection{Occurrences des sinistres (modèle B)}
+
 
 
 
@@ -2573,7 +2561,7 @@ L'implémentation ci-dessus est quelque peu inspirée d'une méthode de rejet. P
 
 
 \begin{center}
-\includegraphics[width=12cm,height=3.4cm]{img11}
+\includegraphics[width=12cm,height=3.4cm]{img20}
 \captionof{figure}{Évolution de la probabilité de ruine en fonction de $u$ et de $c$}
 \end{center}
 
@@ -2604,7 +2592,7 @@ Notre modèle stochastique pouvant se révélé lourd par certains aspects, nous
 
 
 \begin{center}
-\includegraphics[width=12cm,height=3.4cm]{img12}
+\includegraphics[width=12cm,height=3.4cm]{img21}
 \captionof{figure}{Évolution de la probabilité de ruine en fonction de $a$ et de $\alpha$}
 \end{center}
 
@@ -2670,6 +2658,89 @@ attentes.
 
 
 \begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Les deux premières implémentations de $X_{norm}$ produisent sensiblement les mêmes distributions.
+
+Néanmoins nous tenons par soucis d'honnêteté intellectuelle a signaler que les performances de l'une ou de l'autre paraissent avant tout contextuelles.
+\end{minipage}
+\end{center}
+
+
+\begin{center}
+\begin{minipage}[r]{0.6\textwidth}
+lorsque $\delta$ est très grand, le \textit{terme oscillant} devient quasiment constant et la densité tends vers une loi normale tronquée. Dans ce cas, la méthode optimisée (\textit{rejet gaussien})
+doit être particulièrement performante.
+
+
+\end{minipage}
+\begin{minipage}[r]{0.38\textwidth}
+
+\begin{center}
+\includegraphics[width=5cm,height=4.4cm]{img18}
+\captionof{figure}{$\delta = 10000$}
+\end{center}
+\end{minipage}
+\end{center}
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.42\textwidth}
+\begin{center}
+\includegraphics[width=5cm,height=4.4cm]{img19}
+\captionof{figure}{$\delta = 1$}
+\end{center}
+
+\end{minipage}
+\begin{minipage}[r]{0.56\textwidth}
+A l'inverse, lorsque $\delta$ est très petit (entendez par la proche de $1$), les oscillations de la densité deviennent très marquées, ce
+qui rend la méthode de rejet uniforme nettement moins efficace. Ces situations extrêmes
+sont précisément celles où la comparaison entre les deux méthodes est la plus instructive.
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Nous l'avons dit, les performances de l'une ou de l'autre méthode paraissent avant tout contextuelles.
+
+Parmi ces nombreux contextes figure celui de la valeur de $\delta$ :
+
+\begin{center}
+\begin{tabular}{|l|l|l|} \hline
+
+Valeur de $\delta$ & Modèle uniforme & Modèle gaussien \\ \hline
+
+$1$ & $1.17s$ & $0.35s$ \\ \hline
+
+$10000$ & $0.88s$ & $0.28s$ \\ \hline
+
+
+\end{tabular}
+\end{center}
+
+Cela vient confirmer que dans les cas
+extrêmes testés notre deuxième méthode de rejet est bien plus performante.
+\end{minipage}
+\end{center}
+
+
+
+
+
+\begin{center}
 \begin{minipage}[r]{0.6\textwidth}
 Nous avons fait des tests où $Z$ était relativement
 simple et prenait trois valeurs $0,1$ ou $2$. Un premier test
@@ -2717,6 +2788,326 @@ comme attendu.
 
 
 \subsection{Modèle B}
+\textbf{Première approche :}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+Considérant nos implémentations relativement proches de celles du Modèle A, nous ne trouvions pas particulièrement pertinent de disserter longuement sur nos méthodes de simulation.
+
+Nous insistons toutefois sur une limite inhérente a notre implémentation (ou peu s'en faut) du Modèle B dans sa seconde version. Les ramifications du modèle, trop nombreuses, amoindrissent nos capacités de parallélisation, les sous problèmes étant si nombreux que les périodes de préparation aux dites parallélisations font exploser le temps d'exécution de ce dernier.
+
+\phantom{aaaa}
+
+A cela vient s'additionner une limite fort incapacitante : l'impossibilité de pouvoir réinitialiser un \textit{thread python}.
+
+Nous ne doutons pas qu'il puisse exister une solution satisfaisante a ce problème, néanmoins ne arrivons petit a petit a court de temps.  
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\phantom{aa}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\phantom{aa}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\textcolor{black!60}{10}
+
+\textcolor{black!60}{11}
+
+\textcolor{black!60}{12}
+
+\textcolor{black!60}{13}
+
+\textcolor{black!60}{14}
+
+\textcolor{black!60}{15}
+
+\textcolor{black!60}{16}
+
+\textcolor{black!60}{17}
+
+\textcolor{black!60}{18}
+
+\textcolor{black!60}{19}
+
+\phantom{aa}
+
+\textcolor{black!60}{20}
+
+\textcolor{black!60}{21}
+
+\textcolor{black!60}{22}
+
+\textcolor{black!60}{23}
+
+\textcolor{black!60}{24}
+
+
+
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{modele\_B\_meteo\_indep}(N\_assures, u, c, horizon, M, H0, lambd, p, x0, b, sigma, delta, a, alpha):
+
+\phantom{aaaa}T\_all \textcolor{mymauve}{=} []
+
+\phantom{aaaa}X\_all \textcolor{mymauve}{=} []
+
+\phantom{aaaa}\textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(N\_assures):
+
+\phantom{aaaaaaaa}H\_i \textcolor{mymauve}{=} simuler\_chaine\_markov(M, H0, horizon)
+
+\phantom{aaaaaaaa}sinistres\_i \textcolor{mymauve}{=} simuler\_sinistres\_avec\_temps(H\_i, lambd, p, x0, b, sigma, delta, a, alpha)
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{if} \textcolor{codegreen}{len}(sinistres\_i) \textcolor{mymauve}{>} \textcolor{codegreen}{0}:
+
+\phantom{aaaaaaaaaaaa}T\_i \textcolor{mymauve}{=} np.\textcolor{blue}{array}([t \textcolor{codegreen}{for} (t, x) \textcolor{codegreen}{in} sinistres\_i])
+
+\phantom{aaaaaaaaaaaa}X\_i \textcolor{mymauve}{=} np.\textcolor{blue}{array}([x \textcolor{codegreen}{for} (t, x) \textcolor{codegreen}{in} sinistres\_i])
+
+\phantom{aaaaaaaaaaaa}T\_all.\textcolor{blue}{append}(T\_i)
+
+\phantom{aaaaaaaaaaaa}X\_all.\textcolor{blue}{append}(X\_i)
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{if} \textcolor{codegreen}{len}(T\_all) \textcolor{mymauve}{==} \textcolor{codegreen}{0}:
+
+\phantom{aaaaaaaaaaaa}\textcolor{teal}{return} np.\textcolor{blue}{array}([]), np.\textcolor{blue}{array}([]), \textcolor{codegreen}{None}
+
+\phantom{aaaaaaaa}T\_global \textcolor{mymauve}{=} np.\textcolor{blue}{concatenate}(T\_all)
+
+\phantom{aaaaaaaa}X\_global \textcolor{mymauve}{=} np.\textcolor{blue}{concatenate}(X\_all)
+
+\phantom{aaaaaaaa}indices\_tri \textcolor{mymauve}{=} np.\textcolor{blue}{argsort}(T\_global)
+
+\phantom{aaaaaaaa}T\_global \textcolor{mymauve}{=} T\_global[indices\_tri]
+
+\phantom{aaaaaaaa}X\_global \textcolor{mymauve}{=} X\_global[indices\_tri]
+
+\phantom{aaaaaaaa}Rt \textcolor{mymauve}{=} N\_assures \textcolor{mymauve}{*} u \textcolor{mymauve}{+} N\_assures \textcolor{mymauve}{*} c \textcolor{mymauve}{*} T\_global \textcolor{mymauve}{-} np.\textcolor{blue}{cumsum}(X\_global)
+
+\phantom{aaaaaaaa}indices\_ruine \textcolor{mymauve}{=} np.\textcolor{blue}{where}(Rt \textcolor{mymauve}{<} \textcolor{codegreen}{0})[\textcolor{codegreen}{0}]
+
+\phantom{aaaaaaaa}t\_ruine \textcolor{mymauve}{=} \textcolor{codegreen}{None}
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{if} \textcolor{codegreen}{len}(indices\_ruine) \textcolor{mymauve}{>} \textcolor{codegreen}{0}:
+
+\phantom{aaaaaaaaaaaa}t\_ruine \textcolor{mymauve}{=} T\_global[indices\_ruine[\textcolor{codegreen}{0}]]
+
+\phantom{aaaaaaaa}\textcolor{teal}{return} T\_global, Rt, t\_ruine
+
+
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+\newpage
+\textbf{Seconde approche :}
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\phantom{aa}
+
+\textcolor{black!60}{7}
+
+\phantom{aa}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\textcolor{black!60}{10}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{11}
+
+\phantom{aa}
+
+\phantom{aa}
+
+\textcolor{black!60}{12}
+
+\phantom{aa}
+
+\textcolor{black!60}{13}
+
+\textcolor{black!60}{14}
+
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{run}(self, rounds\textcolor{mymauve}{=}\textcolor{codegreen}{365}):
+
+\phantom{aaaa}N\_sim \textcolor{mymauve}{=} np.\textcolor{blue}{random.poisson}(lam\textcolor{mymauve}{=}self.\textcolor{blue}{theta}\textcolor{mymauve}{*}rounds)
+        \textcolor{mymauve}{\# \textit{Nous essayer d'optimiser le code de façon a que l'on ait besoin de simuler toute la trajectoire de la chaine de markov, si et seulement si l'information qu'elle apport nous ait nécessaire.}}
+        
+\phantom{aaaa}\textcolor{codegreen}{for} k \textcolor{codegreen}{in} \textcolor{codegreen}{range}(N\_sim):
+
+\phantom{aaaaaaaa}va\_transitoire \textcolor{mymauve}{=} np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0},rounds)
+
+\phantom{aaaaaaaa}va\_transitoire\_aux \textcolor{mymauve}{=} \textcolor{codegreen}{int}(va\_transitoire)
+
+\phantom{aaaaaaaa}\textcolor{codegreen}{if} (va\_transitoire\_aux \textcolor{codegreen}{in} self.\textcolor{blue}{trajectory}): \textcolor{mymauve}{\# \textit{recherche en temps constant}}
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{if} (np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0},self.\textcolor{blue}{theta}) \textcolor{mymauve}{<=} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}]\textcolor{mymauve}{*}self.\textcolor{blue}{trajectory}[va\_transitoire\_aux]):
+                
+\phantom{aaaaaaaaaaaaaaaa}self.\textcolor{blue}{T.append}(va\_transitoire)
+
+\phantom{aaaaaaaaaaaa}\textcolor{codegreen}{else}:
+
+\phantom{aaaaaaaaaaaaaaaa}\textcolor{codegreen}{for} i \textcolor{codegreen}{in} \textcolor{codegreen}{range}(va\_transitoire\_aux \textcolor{mymauve}{-} self.round \textcolor{mymauve}{+} \textcolor{codegreen}{2}): \textcolor{mymauve}{\# \textit{Nombre de tours qu'il nous reste pour que va\_transitioire\_aux soit dans le dictionnaire}}
+
+\phantom{aaaaaaaaaaaaaaaaaaaa}self.\textcolor{blue}{state}, self.\textcolor{blue}{round}, self.\textcolor{blue}{trajectory}[self.\textcolor{blue}{round}] \textcolor{mymauve}{=} self.\textcolor{blue}{transitions\_walker\_table}[self.\textcolor{blue}{indexa}[self.\textcolor{blue}{state}]].\textcolor{blue}{run}(), self.\textcolor{blue}{round} \textcolor{mymauve}{+} \textcolor{codegreen}{1}, self.\textcolor{blue}{state}
+
+\phantom{aaaaaaaaaaaaaaaaaaaa}\textcolor{codegreen}{if} (np.\textcolor{blue}{random.uniform}(\textcolor{codegreen}{0},self.\textcolor{blue}{theta}) \textcolor{mymauve}{<=} self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}]\textcolor{mymauve}{*}self.\textcolor{blue}{trajectory}[va\_transitoire\_aux]):
+
+\phantom{aaaaaaaaaaaaaaaa}self.\textcolor{blue}{T.append}(va\_transitoire)
+
+\phantom{aaaa}self.\textcolor{blue}{reinit}()
+\end{minipage}
+\end{center}
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+
+\end{minipage}
+\begin{minipage}[r]{0.8\textwidth}
+\phantom{aa}
+
+La \textbf{\textit{fonction}} \textcolor{blue}{run} remplie la liste globale du portefeuille de sinistres individuels.
+
+\phantom{aa}
+
+La \textbf{\textit{fonction}} \textcolor{blue}{T\_run} génère la liste des occurrences.
+
+\phantom{aa}
+\end{minipage}
+\end{center}
+
+
+
+
+
+
+
+
+\begin{center}
+\begin{minipage}[r]{0.1\textwidth}
+\textcolor{black!60}{1}
+
+\textcolor{black!60}{2}
+
+\textcolor{black!60}{3}
+
+\textcolor{black!60}{4}
+
+\textcolor{black!60}{5}
+
+\textcolor{black!60}{6}
+
+\textcolor{black!60}{7}
+
+\textcolor{black!60}{8}
+
+\textcolor{black!60}{9}
+
+\phantom{aa}
+
+
+
+
+
+\end{minipage}
+\begin{minipage}[r]{0.88\textwidth}
+
+\textcolor{teal}{def} \textcolor{blue}{T\_run}(self, draw\textcolor{mymauve}{=}\textcolor{orange!80}{True}):
+
+\phantom{aaaa}\textcolor{codegreen}{for} i \textcolor{codegreen}{in range}(self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}]):
+
+\phantom{aaaaaaaa}self.\textcolor{blue}{subsub.run}()
+
+\phantom{aaaa}self.\textcolor{blue}{T.sort}()
+
+\phantom{aaaa}\textcolor{codegreen}{if} draw:
+
+\phantom{aaaaaaaa}X \textcolor{mymauve}{=} [self.\textcolor{blue}{sinister.loi\_X\_run}() \textcolor{codegreen}{for} k \textcolor{codegreen}{in} \textcolor{codegreen}{range}(\textcolor{codegreen}{len}(self.\textcolor{blue}{T}))]
+
+\phantom{aaaaaaaa}X[\textcolor{codegreen}{0}] \textcolor{mymauve}{=} \textcolor{codegreen}{0}
+
+\phantom{aaaaaaaa}drawP(T\textcolor{mymauve}{=}self.\textcolor{blue}{T}, X\textcolor{mymauve}{=}X)
+
+\phantom{aaaaaaaa}drawRt(T\textcolor{mymauve}{=}self.\textcolor{blue}{T}, X\textcolor{mymauve}{=}X, N\textcolor{mymauve}{=}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"N"}], u\textcolor{mymauve}{=}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"u"}], c\textcolor{mymauve}{=}self.\textcolor{blue}{settings.parameters}[\textcolor{red}{"c"}])
+
+
+\end{minipage}
+\end{center}
+
+
+
+
+\begin{center}
+\includegraphics[width=12cm,height=3.4cm]{img22}
+\captionof{figure}{Évolution de la probabilité de ruine en fonction de $u$ et de $c$ (Modèle B)}
+\end{center}
+
+
+
+
+
+
 \subsection{Complexités algorithmiques}
 
 
